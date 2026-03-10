@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Curation of Digital Experience</title>
+    <meta name="description" content="비즈니스 기획부터 하이엔드 웹 인터페이스까지, 기술과 자연의 조화를 탐구하는 디지털 아카이브. Creative Strategist, Seoul 2026.">
+    <meta name="theme-color" content="#1a3a2a">
+    <meta property="og:title" content="Portfolio | Curation of Digital Experience">
+    <meta property="og:description" content="기술과 자연의 조화를 탐구하는 디지털 아카이브">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+/* ========== CSS Custom Properties ========== */
+:root {
+  --green-900: #1a3a2a;
+  --green-800: #1e4432;
+  --green-700: #2d5a3f;
+  --green-600: #3a7254;
+  --green-500: #4a8c6f;
+  --green-400: #6aad8a;
+  --green-300: #8ec4a5;
+  --green-200: #b8dcc8;
+  --green-100: #e0f0e6;
+  --green-50: #f0f8f3;
+
+  --gold-600: #a88a3c;
+  --gold-500: #c9a84c;
+  --gold-400: #d4ba6e;
+  --gold-300: #e2cf94;
+
+  --cream: #faf8f0;
+  --cream-dark: #f2efe3;
+  --cream-light: #fdfcf7;
+  --white: #ffffff;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a5e52;
+  --text-muted: #7a8e82;
+  --text-on-dark: #f0f8f3;
+  --text-on-dark-muted: #b8dcc8;
+
+  --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+
+  --max-width: 1200px;
+  --container-padding: clamp(1rem, 4vw, 2rem);
+  --section-padding: clamp(3rem, 8vw, 6rem);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  --shadow-sm: 0 1px 3px rgba(26,58,42,0.08);
+  --shadow-md: 0 4px 12px rgba(26,58,42,0.1);
+  --shadow-lg: 0 8px 30px rgba(26,58,42,0.12);
+
+  --transition-fast: 0.2s cubic-bezier(0.16,1,0.3,1);
+  --transition-base: 0.35s cubic-bezier(0.16,1,0.3,1);
+  --transition-slow: 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ========== Reset & Base ========== */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+img { max-width:100%; height:auto; display:block; }
+a { color:inherit; text-decoration:none; }
+button { font-family:inherit; cursor:pointer; border:none; background:none; }
+ul { list-style:none; }
+::selection { background:var(--green-700); color:#fff; }
+:focus-visible { outline:2px solid var(--gold-500); outline-offset:4px; border-radius:2px; }
+
+.container { max-width:var(--max-width); margin:0 auto; padding:0 var(--container-padding); }
+.overline { font-size:0.75rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-500); }
+
+/* ========== Skip Nav ========== */
+.skip-nav {
+  position:absolute; top:-100%; left:0;
+  background:var(--green-900); color:#fff;
+  padding:12px 24px; z-index:9999; font-size:0.875rem;
+  text-decoration:none; transition:top 0.2s;
+}
+.skip-nav:focus { top:0; }
+
+/* ========== Scroll Progress ========== */
+.scroll-progress {
+  position:fixed; top:0; left:0; width:0; height:3px;
+  background:linear-gradient(90deg, var(--gold-500), var(--green-400));
+  z-index:1001; transition:none;
+}
+
+/* ========== Navigation ========== */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:1rem 0;
+  transition:background var(--transition-base), box-shadow var(--transition-base), padding var(--transition-base);
+}
+.nav.scrolled {
+  background:rgba(250,248,240,0.92);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  box-shadow:var(--shadow-sm); padding:0.75rem 0;
+}
+.nav__inner {
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:var(--max-width); margin:0 auto; padding:0 var(--container-padding);
+}
+.nav__logo {
+  display:flex; align-items:center; gap:0.5rem;
+  font-weight:700; font-size:1.125rem;
+  color:var(--text-on-dark); transition:color var(--transition-base); z-index:101;
+}
+.nav.scrolled .nav__logo { color:var(--green-900); }
+.nav__logo-icon { width:32px; height:32px; position:relative; }
+.nav__logo-icon .seed {
+  width:10px; height:14px; background:var(--gold-500);
+  border-radius:50% 50% 50% 0; position:absolute;
+  bottom:6px; left:11px; transform:rotate(-15deg);
+}
+.nav__logo-icon .leaf {
+  width:16px; height:16px; border:2.5px solid var(--green-400);
+  border-radius:0 50% 0 50%; position:absolute;
+  top:2px; right:2px; transform:rotate(-10deg);
+}
+.nav__logo-icon .leaf::after {
+  content:''; position:absolute; width:1.5px; height:12px;
+  background:var(--green-400); bottom:-4px; left:3px; transform:rotate(15deg);
+}
+.nav.scrolled .nav__logo-icon .leaf { border-color:var(--green-700); }
+.nav.scrolled .nav__logo-icon .leaf::after { background:var(--green-700); }
+
+.nav__links { display:flex; align-items:center; gap:2rem; }
+.nav__link {
+  font-size:0.875rem; font-weight:500;
+  color:rgba(255,255,255,0.8); transition:color var(--transition-fast);
+  position:relative;
+}
+.nav__link::after {
+  content:''; position:absolute; bottom:-4px; left:0;
+  width:0; height:2px; background:var(--gold-500);
+  transition:width var(--transition-base);
+}
+.nav__link:hover::after { width:100%; }
+.nav.scrolled .nav__link { color:var(--text-secondary); }
+.nav.scrolled .nav__link:hover { color:var(--green-700); }
+
+.nav__cta {
+  padding:0.5rem 1.5rem; background:var(--gold-500);
+  color:var(--green-900); border-radius:100px;
+  font-size:0.875rem; font-weight:600;
+  transition:all var(--transition-fast);
+}
+.nav__cta:hover { background:var(--gold-400); transform:translateY(-1px); }
+
+/* Hamburger */
+.nav__hamburger {
+  display:none; flex-direction:column; gap:5px;
+  z-index:101; padding:0.5rem;
+}
+.nav__hamburger span {
+  display:block; width:22px; height:2px;
+  background:var(--text-on-dark); border-radius:2px;
+  transition:all var(--transition-base);
+}
+.nav.scrolled .nav__hamburger span { background:var(--green-900); }
+.nav__hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.nav__hamburger.active span:nth-child(2) { opacity:0; }
+.nav__hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+.nav__mobile {
+  display:none; position:fixed; top:0; left:0; right:0; bottom:0;
+  background:var(--green-900); z-index:99;
+  flex-direction:column; align-items:center; justify-content:center; gap:2rem;
+  opacity:0; pointer-events:none; transition:opacity var(--transition-base);
+}
+.nav__mobile.open { opacity:1; pointer-events:all; }
+.nav__mobile a { font-size:1.5rem; color:var(--text-on-dark); font-weight:500; }
+
+@media (max-width:768px) {
+  .nav__links { display:none; }
+  .nav__hamburger { display:flex; }
+  .nav__mobile { display:flex; }
+}
+
+/* ========== HERO ========== */
+.hero {
+  min-height:100vh; display:flex; align-items:center;
+  background:linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 40%, var(--green-700) 100%);
+  position:relative; overflow:hidden;
+  padding:8rem 0 4rem;
+}
+.hero::before {
+  content:''; position:absolute; top:-50%; right:-20%;
+  width:80%; height:150%;
+  background:radial-gradient(ellipse, rgba(74,140,111,0.15) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:120px;
+  background:linear-gradient(to top, var(--cream), transparent);
+  pointer-events:none;
+}
+.hero__inner { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
+.hero__badge {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.25rem 1rem; border-radius:100px;
+  font-size:0.75rem; font-weight:500; letter-spacing:0.02em;
+  background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3);
+  color:var(--gold-400); margin-bottom:1.5rem;
+}
+.hero__title {
+  font-family:var(--font-display); font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:700; color:var(--white); line-height:1.1; margin-bottom:1rem;
+}
+.hero__title em { font-style:italic; color:var(--gold-400); }
+.hero__subtitle {
+  font-size:1.125rem; color:var(--green-200);
+  margin-bottom:1.5rem; font-weight:400; line-height:1.6;
+}
+.hero__desc {
+  font-size:1rem; color:var(--green-300);
+  line-height:1.8; margin-bottom:2rem; max-width:520px;
+}
+.hero__ctas { display:flex; gap:1rem; flex-wrap:wrap; }
+.btn {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.75rem 2rem; border-radius:100px;
+  font-size:0.875rem; font-weight:600; transition:all var(--transition-fast);
+}
+.btn--primary { background:var(--gold-500); color:var(--green-900); }
+.btn--primary:hover { background:var(--gold-400); transform:translateY(-2px); box-shadow:0 4px 20px rgba(201,168,76,0.3); }
+.btn--outline { border:1.5px solid rgba(255,255,255,0.3); color:var(--white); }
+.btn--outline:hover { border-color:rgba(255,255,255,0.6); background:rgba(255,255,255,0.05); }
+
+/* Hero Cards */
+.hero__cards { display:grid; grid-template-columns:1fr 1fr; gap:1rem; position:relative; }
+.hero__card {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--radius-xl); padding:1.5rem;
+  backdrop-filter:blur(8px);
+  transition:transform var(--transition-base), background var(--transition-base);
+}
+.hero__card:hover { transform:translateY(-4px); background:rgba(255,255,255,0.1); }
+.hero__card:nth-child(2) { transform:translateY(20px); }
+.hero__card:nth-child(2):hover { transform:translateY(16px); }
+.hero__card:nth-child(3) { transform:translateY(-10px); }
+.hero__card:nth-child(3):hover { transform:translateY(-14px); }
+.hero__card-icon { font-size:1.5rem; margin-bottom:0.75rem; }
+.hero__card-title { font-weight:600; font-size:0.875rem; color:var(--white); margin-bottom:0.25rem; }
+.hero__card-desc { font-size:0.75rem; color:var(--green-300); line-height:1.5; }
+
+@media (max-width:768px) {
+  .hero { padding:6rem 0 3rem; }
+  .hero__inner { grid-template-columns:1fr; }
+  .hero__cards { grid-template-columns:1fr 1fr; gap:0.75rem; }
+  .hero__card:nth-child(2),.hero__card:nth-child(3) { transform:none; }
+  .hero__card { padding:1rem; }
+}
+
+/* ========== WORK SECTION ========== */
+.work { padding:var(--section-padding) 0; background:var(--cream); }
+.work__header {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom:3rem; padding-bottom:1.25rem;
+  border-bottom:1px solid var(--green-900);
+}
+.work__header h2 {
+  font-family:var(--font-display); font-size:clamp(1.75rem,3.5vw,2.5rem);
+  font-weight:700; color:var(--green-900);
+}
+.work__header span { font-size:0.75rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; font-weight:600; }
+.project-grid {
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,360px),1fr));
+  gap:clamp(1.25rem,3vw,2rem);
+}
+
+/* Project Card */
+.project-card {
+  display:block; position:relative; overflow:hidden;
+  border:1px solid rgba(26,58,42,0.06); border-radius:var(--radius-xl);
+  background:var(--white); box-shadow:var(--shadow-sm);
+  transition:all var(--transition-base);
+}
+.project-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-lg); }
+.project-card__img {
+  width:100%; aspect-ratio:16/10;
+  overflow:hidden; position:relative;
+}
+.project-card__img img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform 1.5s cubic-bezier(0.16,1,0.3,1);
+}
+.project-card:hover .project-card__img img { transform:scale(1.05); }
+.project-card__img::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:50%;
+  background:linear-gradient(transparent, rgba(0,0,0,0.35));
+  pointer-events:none;
+}
+.project-card__badge {
+  position:absolute; top:1rem; left:1rem;
+  font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+  color:#fff; background:rgba(0,0,0,0.4);
+  padding:6px 14px; border-radius:100px;
+  backdrop-filter:blur(10px); z-index:2;
+}
+.project-card__content { padding:1.5rem; }
+.project-card__top { display:flex; justify-content:space-between; align-items:flex-start; }
+.project-card__content h3 {
+  font-family:var(--font-display); font-size:1.5rem;
+  font-weight:700; color:var(--green-900); margin-bottom:0.5rem;
+}
+.project-card__content p {
+  font-size:0.875rem; font-weight:400; line-height:1.6;
+  color:var(--text-secondary); max-width:360px;
+}
+.project-card__arrow {
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid rgba(26,58,42,0.12);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-left:1rem; color:var(--green-700);
+  transition:transform var(--transition-base);
+}
+.project-card:hover .project-card__arrow { transform:translate(3px,-3px); }
+.project-card__tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1rem; }
+.project-card__tags span {
+  font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase;
+  padding:4px 12px; border-radius:100px;
+  border:1px solid rgba(26,58,42,0.1); color:var(--text-muted);
+  font-weight:500;
+}
+
+/* ========== METHOD SECTION ========== */
+.method { padding:var(--section-padding) 0; background:var(--green-900); }
+.method__header { text-align:center; margin-bottom:3rem; }
+.method__header h2 { font-family:var(--font-display); font-size:clamp(1.75rem,3.5vw,2.5rem); font-weight:700; color:var(--white); }
+.method__header p { color:var(--green-300); margin:1rem auto 0; max-width:600px; }
+.method-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,260px),1fr)); gap:1.5rem; }
+.method-card {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--radius-xl); padding:2rem;
+  transition:all var(--transition-base); position:relative; overflow:hidden;
+}
+.method-card::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:3px; background:linear-gradient(90deg,var(--gold-500),var(--green-400));
+  opacity:0; transition:opacity var(--transition-base);
+}
+.method-card:hover { background:rgba(255,255,255,0.08); transform:translateY(-4px); }
+.method-card:hover::before { opacity:1; }
+.method-card__icon { font-size:2rem; margin-bottom:1rem; }
+.method-card h3 { font-weight:700; font-size:1.125rem; color:var(--white); margin-bottom:0.5rem; }
+.method-card p { font-size:0.875rem; color:var(--green-300); line-height:1.7; }
+
+/* ========== CONTACT SECTION ========== */
+.contact { padding:var(--section-padding) 0; background:var(--cream); }
+.contact__inner {
+  display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;
+}
+.contact__text .overline { margin-bottom:0.75rem; }
+.contact__text h2 {
+  font-family:var(--font-display); font-size:clamp(1.75rem,3.5vw,2.5rem);
+  font-weight:700; color:var(--green-900); margin-bottom:1.5rem;
+}
+.contact__text p { color:var(--text-secondary); line-height:1.8; margin-bottom:2rem; max-width:480px; }
+
+.contact-card {
+  background:var(--white); border-radius:var(--radius-2xl); padding:2.5rem;
+  box-shadow:var(--shadow-lg); border:1px solid rgba(26,58,42,0.06);
+  text-align:center;
+}
+.contact-card__avatar {
+  width:80px; height:80px;
+  background:linear-gradient(135deg,#0088cc,#00aadd);
+  border-radius:50%; margin:0 auto 1.5rem;
+  display:flex; align-items:center; justify-content:center;
+  font-size:2rem;
+}
+.contact-card__name { font-weight:700; font-size:1.125rem; color:var(--green-900); margin-bottom:0.25rem; }
+.contact-card__handle { font-size:0.875rem; color:#0088cc; margin-bottom:1.5rem; display:block; }
+.contact-card__desc { font-size:0.875rem; color:var(--text-secondary); line-height:1.7; margin-bottom:1.5rem; }
+.contact-card__items { text-align:left; margin-bottom:2rem; }
+.contact-card__item {
+  display:flex; align-items:center; gap:0.75rem;
+  padding:0.75rem 0; font-size:0.875rem; color:var(--text-secondary);
+  border-bottom:1px solid var(--cream-dark);
+}
+.contact-card__item:last-child { border-bottom:none; }
+.contact-card__item span:first-child {
+  width:28px; height:28px; background:var(--green-50);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:0.75rem; flex-shrink:0;
+}
+.btn--telegram {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.75rem 2rem; background:#0088cc; color:var(--white);
+  border-radius:100px; font-size:0.875rem; font-weight:600;
+  transition:all var(--transition-fast);
+}
+.btn--telegram:hover { background:#006699; transform:translateY(-2px); box-shadow:0 4px 20px rgba(0,136,204,0.3); }
+
+@media (max-width:768px) {
+  .contact__inner { grid-template-columns:1fr; }
+  .work__header { flex-direction:column; align-items:flex-start; gap:0.5rem; }
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding:3rem 0; border-top:1px solid rgba(26,58,42,0.08);
+  background:var(--cream-light);
+}
+.footer__inner {
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:1rem;
+  max-width:var(--max-width); margin:0 auto; padding:0 var(--container-padding);
+}
+.footer__copy { font-size:0.75rem; color:var(--text-muted); }
+.footer__links { display:flex; gap:2rem; }
+.footer__links a { font-size:0.75rem; color:var(--text-muted); font-weight:500; transition:color var(--transition-fast); }
+.footer__links a:hover { color:var(--green-700); }
+
+@media (max-width:768px) {
+  .footer__inner { flex-direction:column; text-align:center; }
+}
+
+/* ========== Back to Top ========== */
+.back-top {
+  position:fixed; bottom:2rem; right:2rem;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--green-700); color:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.25rem; box-shadow:var(--shadow-md);
+  opacity:0; pointer-events:none; transform:translateY(10px);
+  transition:all var(--transition-base); z-index:50;
+  border:none; cursor:pointer;
+}
+.back-top.visible { opacity:1; pointer-events:all; transform:translateY(0); }
+.back-top:hover { background:var(--green-600); transform:translateY(-2px); }
+
+/* ========== Scroll Reveal ========== */
+.reveal {
+  opacity:0; transform:translateY(30px);
+  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:0.1s; }
+.reveal-delay-2 { transition-delay:0.2s; }
+.reveal-delay-3 { transition-delay:0.3s; }
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion:reduce) {
+  .reveal { opacity:1; transform:none; transition:none; }
+  html { scroll-behavior:auto; }
+  * { transition-duration:0.01ms !important; animation-duration:0.01ms !important; }
+}
+
+/* ========== Print ========== */
+@media print {
+  .nav,.scroll-progress,.back-top,.hero__cards { display:none; }
+  .hero { min-height:auto; padding:2rem 0; background:#fff; }
+  .hero__title,.hero__subtitle { color:#000; }
+  body { background:#fff; color:#000; }
+  .project-card { break-inside:avoid; box-shadow:none; border:1px solid #ccc; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Skip Nav -->
+<a href="#main-content" class="skip-nav">메인 콘텐츠로 건너뛰기</a>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo" aria-label="Portfolio home">
+      <div class="nav__logo-icon"><div class="seed"></div><div class="leaf"></div></div>
+      PORTFOLIO
+    </a>
+    <div class="nav__links">
+      <a href="#work" class="nav__link">Work</a>
+      <a href="#method" class="nav__link">Method</a>
+      <a href="#contact" class="nav__link">Contact</a>
+      <a href="https://t.me/bang1lee" target="_blank" rel="noopener noreferrer" class="nav__cta">💬 문의하기</a>
+    </div>
+    <button class="nav__hamburger" id="hamburger" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="nav__mobile" id="mobileMenu">
+  <a href="#work">Work</a>
+  <a href="#method">Method</a>
+  <a href="#contact">Contact</a>
+  <a href="https://t.me/bang1lee" target="_blank" rel="noopener noreferrer">💬 문의하기</a>
+</div>
+
+<main id="main-content">
+
+<!-- ========== HERO ========== -->
+<section class="hero" aria-label="Hero introduction">
+  <div class="container">
+    <div class="hero__inner">
+      <div>
+        <div class="hero__badge reveal">🌱 Creative Strategist / Seoul 2026</div>
+        <h1 class="hero__title reveal reveal-delay-1">
+          Curation of<br><em>Digital Experience</em>
+        </h1>
+        <p class="hero__subtitle reveal reveal-delay-2">기술과 자연의 조화를 탐구하는 디지털 아카이브</p>
+        <p class="hero__desc reveal reveal-delay-3">
+          비즈니스 기획부터 하이엔드 웹 인터페이스까지, 자연과 기술이 만나는 곳에서
+          새로운 디지털 경험을 설계합니다. 바이오필리아, 드론 물류, 토종 씨앗 보존까지.
+        </p>
+        <div class="hero__ctas reveal reveal-delay-3">
+          <a href="#work" class="btn btn--primary">프로젝트 보기 →</a>
+          <a href="https://t.me/bang1lee" target="_blank" rel="noopener noreferrer" class="btn btn--outline">💬 Telegram 문의</a>
+        </div>
+      </div>
+      <div class="hero__cards">
+        <div class="hero__card reveal">
+          <div class="hero__card-icon">🚀</div>
+          <div class="hero__card-title">Food-Tech</div>
+          <div class="hero__card-desc">드론 물류 × 유기농 이커머스 서비스 기획</div>
+        </div>
+        <div class="hero__card reveal reveal-delay-1">
+          <div class="hero__card-icon">🌿</div>
+          <div class="hero__card-title">Biophilia</div>
+          <div class="hero__card-desc">자연 결핍 시대의 바이오필리아 교육</div>
+        </div>
+        <div class="hero__card reveal reveal-delay-2">
+          <div class="hero__card-icon">🌾</div>
+          <div class="hero__card-title">Archive</div>
+          <div class="hero__card-desc">사라져가는 토종 종자 인터랙티브 도감</div>
+        </div>
+        <div class="hero__card reveal reveal-delay-3">
+          <div class="hero__card-icon">📊</div>
+          <div class="hero__card-title">Strategy</div>
+          <div class="hero__card-desc">비즈니스 분석 및 수익 모델 설계</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WORK ========== -->
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="work__header reveal">
+      <h2 id="work-title">Selected Work</h2>
+      <span>5 Projects</span>
+    </div>
+    <div class="project-grid">
+
+      <!-- Project 01: GreenJet -->
+      <a href="projects/greenjet.html" class="project-card reveal">
+        <div class="project-card__img">
+          <span class="project-card__badge">01. Food-Tech Platform</span>
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop"
+               alt="GreenJet - 유기농 농가와 드론 물류를 결합한 초신선 이커머스"
+               width="1200" height="750" loading="eager">
+        </div>
+        <div class="project-card__content">
+          <div class="project-card__top">
+            <div>
+              <h3>GreenJet</h3>
+              <p>유기농 농가와 드론 물류를 결합한 초신선 이커머스 서비스 기획 및 브랜딩.</p>
+            </div>
+            <div class="project-card__arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+          <div class="project-card__tags">
+            <span>UX Strategy</span><span>Branding</span><span>Drone Logistics</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 02: SEEDS Archive -->
+      <a href="projects/seeds-archive.html" class="project-card reveal reveal-delay-1">
+        <div class="project-card__img">
+          <span class="project-card__badge">02. Digital Archive</span>
+          <img src="https://images.unsplash.com/photo-1505235687559-28b5f54645b7?q=80&w=1200&auto=format&fit=crop"
+               alt="SEEDS - 토종 종자 인터랙티브 도감"
+               width="1200" height="750" loading="eager">
+        </div>
+        <div class="project-card__content">
+          <div class="project-card__top">
+            <div>
+              <h3>SEEDS</h3>
+              <p>사라져가는 토종 종자들을 기록하고 보존하는 하이엔드 인터랙티브 도감.</p>
+            </div>
+            <div class="project-card__arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+          <div class="project-card__tags">
+            <span>Interactive</span><span>Data Viz</span><span>Archive</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 03: Seeds & Life -->
+      <a href="projects/seeds-and-life.html" class="project-card reveal reveal-delay-2">
+        <div class="project-card__img">
+          <span class="project-card__badge">03. Nonprofit Education</span>
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1200&auto=format&fit=crop"
+               alt="씨앗과 생명 - 비영리 어린이 교육 플랫폼"
+               width="1200" height="750" loading="lazy">
+        </div>
+        <div class="project-card__content">
+          <div class="project-card__top">
+            <div>
+              <h3>씨앗과 생명</h3>
+              <p>바이오필리아 탐구와 성경적 세계관을 위한 비영리 어린이 교육 플랫폼.</p>
+            </div>
+            <div class="project-card__arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+          <div class="project-card__tags">
+            <span>Education</span><span>Biophilia</span><span>Nonprofit</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 04: Little Explorers -->
+      <a href="projects/children-camp.html" class="project-card reveal reveal-delay-3">
+        <div class="project-card__img">
+          <span class="project-card__badge">04. Premium Kids Camp</span>
+          <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=1200&auto=format&fit=crop"
+               alt="Little Explorers - 숲 체험 캠프"
+               width="1200" height="750" loading="lazy">
+        </div>
+        <div class="project-card__content">
+          <div class="project-card__top">
+            <div>
+              <h3>Little Explorers</h3>
+              <p>자연 결핍 시대의 아이들을 위한 숲 체험 및 생태 교육 캠프 기획.</p>
+            </div>
+            <div class="project-card__arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+          <div class="project-card__tags">
+            <span>Service Design</span><span>Education</span><span>Nature</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 05: GreenJet Proposal -->
+      <a href="projects/greenjet-landing.html" class="project-card reveal">
+        <div class="project-card__img">
+          <span class="project-card__badge">05. Strategy Document</span>
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop"
+               alt="GreenJet Proposal - 비즈니스 로드맵"
+               width="1200" height="750" loading="lazy">
+        </div>
+        <div class="project-card__content">
+          <div class="project-card__top">
+            <div>
+              <h3>GreenJet Proposal</h3>
+              <p>사업 개요, 타겟 분석, 수익 모델을 담은 비즈니스 로드맵 원문.</p>
+            </div>
+            <div class="project-card__arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+          <div class="project-card__tags">
+            <span>Business Strategy</span><span>Market Analysis</span><span>Revenue Model</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== METHOD ========== -->
+<section class="method" id="method" aria-labelledby="method-title">
+  <div class="container">
+    <div class="method__header reveal">
+      <span class="overline" style="color:var(--gold-400);">Our Methodology</span>
+      <h2 id="method-title">How we build values.</h2>
+      <p>리서치에서 시작해 검증까지, 반복 사이클을 통해 완성도를 높입니다.</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-card reveal">
+        <div class="method-card__icon">📖</div>
+        <h3>01. Research</h3>
+        <p>시장 데이터와 사용자 경험을 분석하여 비즈니스의 핵심 가치를 정의합니다. Awwwards, Behance 트렌드를 분석합니다.</p>
+      </div>
+      <div class="method-card reveal reveal-delay-1">
+        <div class="method-card__icon">🌿</div>
+        <h3>02. Design</h3>
+        <p>하이엔드 브랜드의 시각적 언어를 사용하여 신뢰와 감동의 인터페이스를 구축합니다. 디자인 시스템 일관성을 유지합니다.</p>
+      </div>
+      <div class="method-card reveal reveal-delay-2">
+        <div class="method-card__icon">🚀</div>
+        <h3>03. Integration</h3>
+        <p>최신 기술을 결합하여 실제로 작동하는 디지털 환경을 완성합니다. 접근성, SEO, 성능 최적화를 포함합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact__inner">
+      <div class="contact__text reveal">
+        <span class="overline">Get in Touch</span>
+        <h2 id="contact-title">Let's Create Together.</h2>
+        <p>새로운 프로젝트나 협업에 관심이 있으시다면 언제든 텔레그램으로 연락해주세요. 빠르고 편리하게 소통할 수 있습니다.</p>
+        <a href="https://t.me/bang1lee" target="_blank" rel="noopener noreferrer" class="btn btn--primary">💬 Telegram으로 문의하기</a>
+      </div>
+      <div class="contact-card reveal reveal-delay-1">
+        <div class="contact-card__avatar">✈️</div>
+        <div class="contact-card__name">웹페이지 디자이너</div>
+        <a href="https://t.me/bang1lee" target="_blank" rel="noopener noreferrer" class="contact-card__handle">@bang1lee</a>
+        <p class="contact-card__desc">프로젝트 문의, 협업 제안, 궁금한 점 무엇이든 편하게 메시지 보내주세요.</p>
+        <div class="contact-card__items">
+          <div class="contact-card__item"><span>📋</span> 프로젝트 문의 및 상담</div>
+          <div class="contact-card__item"><span>🤝</span> 협업 제안 및 파트너십</div>
+          <div class="contact-card__item"><span>💡</span> 아이디어 공유 및 피드백</div>
+          <div class="contact-card__item"><span>⚡</span> 빠른 응답 (평균 4시간 이내)</div>
+        </div>
+        <a href="https://t.me/bang1lee" target="_blank" rel="noopener noreferrer" class="btn--telegram">✈️ Telegram 열기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <span class="footer__copy">© 2026 Portfolio. Seoul, Republic of Korea</span>
+    <div class="footer__links">
+      <a href="https://t.me/bang1lee" target="_blank" rel="noopener noreferrer" aria-label="Telegram">Telegram</a>
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="YouTube">YouTube</a>
+      <a href="https://github.com/bang1lee" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-top" id="backTop" aria-label="맨 위로 이동">↑</button>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+(function() {
+  'use strict';
+
+  // ===== Smooth Scroll with Nav Offset =====
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        var navH = document.querySelector('.nav').offsetHeight;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - navH;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        // Close mobile menu
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('active');
+      }
+    });
+  });
+
+  // ===== Scroll Progress =====
+  var prog = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', function() {
+    var winH = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (window.pageYOffset / winH * 100) + '%';
+  }, { passive: true });
+
+  // ===== Nav Scroll =====
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.pageYOffset > 60);
+  }, { passive: true });
+
+  // ===== Hamburger =====
+  var hamburger = document.getElementById('hamburger');
+  var mobile = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active');
+    mobile.classList.toggle('open');
+    var expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', !expanded);
+  });
+
+  // ===== Back to Top =====
+  var backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', function() {
+    backTop.classList.toggle('visible', window.pageYOffset > 400);
+  }, { passive: true });
+  backTop.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ===== Scroll Reveal =====
+  if ('IntersectionObserver' in window) {
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObs.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+})();
+</script>
+</body>
+</html>

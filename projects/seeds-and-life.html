@@ -1,0 +1,3227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>씨앗과 생명 Seeds & Life — 비영리 교육 플랫폼</title>
+<meta name="description" content="씨앗과 기후, 생명과 성경을 연결하는 비영리 어린이 교육 플랫폼. 바이오필리아 탐구와 성경적 세계관을 위한 프로그램.">
+<meta property="og:title" content="씨앗과 생명 Seeds & Life">
+<meta property="og:description" content="씨앗과 기후, 생명과 성경을 연결하는 비영리 어린이 교육 플랫폼">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ========== CSS Custom Properties ========== */
+:root {
+  /* Colors */
+  --green-900: #1a3a2a;
+  --green-800: #1e4432;
+  --green-700: #2d5a3f;
+  --green-600: #3a7254;
+  --green-500: #4a8c6f;
+  --green-400: #6aad8a;
+  --green-300: #8ec4a5;
+  --green-200: #b8dcc8;
+  --green-100: #e0f0e6;
+  --green-50: #f0f8f3;
+
+  --brown-600: #6b5535;
+  --brown-500: #8b6f47;
+  --brown-400: #a68a5b;
+  --brown-300: #c4aa7d;
+
+  --cream: #faf8f0;
+  --cream-dark: #f2efe3;
+  --cream-light: #fdfcf7;
+
+  --gold-600: #a88a3c;
+  --gold-500: #c9a84c;
+  --gold-400: #d4ba6e;
+  --gold-300: #e2cf94;
+
+  --sky-700: #4a7fa3;
+  --sky-600: #5a91b5;
+  --sky-500: #6ba3c7;
+  --sky-400: #89b8d4;
+  --sky-300: #a8cde1;
+
+  --white: #ffffff;
+  --text-primary: #1a2e22;
+  --text-secondary: #4a5e52;
+  --text-muted: #7a8e82;
+  --text-on-dark: #f0f8f3;
+  --text-on-dark-muted: #b8dcc8;
+
+  /* Typography */
+  --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+  --text-hero: clamp(2.5rem, 5vw, 4.5rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --max-width-wide: 1400px;
+  --section-padding: clamp(3rem, 8vw, 6rem);
+  --container-padding: clamp(1rem, 4vw, 2rem);
+
+  /* Effects */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  --shadow-sm: 0 1px 3px rgba(26, 58, 42, 0.08);
+  --shadow-md: 0 4px 12px rgba(26, 58, 42, 0.1);
+  --shadow-lg: 0 8px 30px rgba(26, 58, 42, 0.12);
+  --shadow-xl: 0 12px 40px rgba(26, 58, 42, 0.15);
+
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ========== Reset & Base ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul, ol { list-style: none; }
+
+/* ========== Utility ========== */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.container--wide {
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.overline {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-500);
+}
+
+.overline--light {
+  color: var(--gold-400);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: var(--space-3);
+}
+
+.section-desc {
+  font-size: var(--text-base);
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 600px;
+}
+
+.section-desc--light {
+  color: var(--text-on-dark-muted);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-4);
+  border-radius: 100px;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ========== NAVIGATION ========== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--space-4) 0;
+  transition: background var(--transition-base), box-shadow var(--transition-base), padding var(--transition-base);
+}
+
+.nav.scrolled {
+  background: rgba(250, 248, 240, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-3) 0;
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--text-on-dark);
+  transition: color var(--transition-base);
+  z-index: 101;
+}
+
+.nav.scrolled .nav__logo { color: var(--green-900); }
+
+.nav__logo-icon {
+  width: 32px;
+  height: 32px;
+  position: relative;
+}
+
+.nav__logo-icon .seed {
+  width: 10px;
+  height: 14px;
+  background: var(--gold-500);
+  border-radius: 50% 50% 50% 0;
+  position: absolute;
+  bottom: 6px;
+  left: 11px;
+  transform: rotate(-15deg);
+}
+
+.nav__logo-icon .leaf {
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid var(--green-400);
+  border-radius: 0 50% 0 50%;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  transform: rotate(-10deg);
+}
+
+.nav__logo-icon .leaf::after {
+  content: '';
+  position: absolute;
+  width: 1.5px;
+  height: 12px;
+  background: var(--green-400);
+  bottom: -4px;
+  left: 3px;
+  transform: rotate(15deg);
+}
+
+.nav.scrolled .nav__logo-icon .leaf { border-color: var(--green-700); }
+.nav.scrolled .nav__logo-icon .leaf::after { background: var(--green-700); }
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.nav__link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-500);
+  transition: width var(--transition-base);
+}
+
+.nav__link:hover::after { width: 100%; }
+
+.nav.scrolled .nav__link { color: var(--text-secondary); }
+.nav.scrolled .nav__link:hover { color: var(--green-700); }
+
+.nav__cta {
+  padding: var(--space-2) var(--space-6);
+  background: var(--gold-500);
+  color: var(--green-900);
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav__cta:hover {
+  background: var(--gold-400);
+  transform: translateY(-1px);
+}
+
+/* Hamburger */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 101;
+  padding: var(--space-2);
+}
+
+.nav__hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-on-dark);
+  border-radius: 2px;
+  transition: all var(--transition-base);
+}
+
+.nav.scrolled .nav__hamburger span { background: var(--green-900); }
+
+.nav__hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav__hamburger.active span:nth-child(2) { opacity: 0; }
+.nav__hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile menu */
+.nav__mobile {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--green-900);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.nav__mobile.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.nav__mobile a {
+  font-size: var(--text-2xl);
+  color: var(--text-on-dark);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .nav__links { display: none; }
+  .nav__hamburger { display: flex; }
+  .nav__mobile { display: flex; }
+}
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 40%, var(--green-700) 100%);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-32) 0 var(--space-16);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 80%;
+  height: 150%;
+  background: radial-gradient(ellipse, rgba(74, 140, 111, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, var(--cream), transparent);
+  pointer-events: none;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.hero__badge {
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--gold-400);
+  margin-bottom: var(--space-6);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+}
+
+.hero__title em {
+  font-style: italic;
+  color: var(--gold-400);
+}
+
+.hero__subtitle {
+  font-size: var(--text-lg);
+  color: var(--green-200);
+  margin-bottom: var(--space-6);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.hero__desc {
+  font-size: var(--text-base);
+  color: var(--green-300);
+  line-height: 1.8;
+  margin-bottom: var(--space-8);
+  max-width: 520px;
+}
+
+.hero__ctas {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-8);
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.btn--primary {
+  background: var(--gold-500);
+  color: var(--green-900);
+}
+
+.btn--primary:hover {
+  background: var(--gold-400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+}
+
+.btn--outline {
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: var(--white);
+}
+
+.btn--outline:hover {
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Hero floating cards */
+.hero__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  position: relative;
+}
+
+.hero__card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  backdrop-filter: blur(8px);
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.hero__card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hero__card:nth-child(2) { transform: translateY(20px); }
+.hero__card:nth-child(2):hover { transform: translateY(16px); }
+.hero__card:nth-child(3) { transform: translateY(-10px); }
+.hero__card:nth-child(3):hover { transform: translateY(-14px); }
+
+.hero__card-icon {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+
+.hero__card-title {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--white);
+  margin-bottom: var(--space-1);
+}
+
+.hero__card-desc {
+  font-size: var(--text-xs);
+  color: var(--green-300);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .hero { padding: var(--space-24) 0 var(--space-12); }
+  .hero__inner { grid-template-columns: 1fr; }
+  .hero__cards {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+  .hero__card:nth-child(2) { transform: none; }
+  .hero__card:nth-child(3) { transform: none; }
+  .hero__card { padding: var(--space-4); }
+}
+
+/* ========== MISSION ========== */
+.mission {
+  padding: var(--section-padding) 0;
+  background: var(--cream);
+}
+
+.mission__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.mission__text .section-title {
+  color: var(--green-900);
+  margin-bottom: var(--space-6);
+}
+
+.mission__text .section-desc {
+  margin-bottom: var(--space-8);
+}
+
+.mission__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.mission__stat {
+  text-align: center;
+  padding: var(--space-4);
+  background: var(--green-50);
+  border-radius: var(--radius-lg);
+}
+
+.mission__stat-value {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--green-700);
+}
+
+.mission__stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+
+/* Mission visual */
+.mission__visual {
+  position: relative;
+}
+
+.mission__visual-box {
+  background: linear-gradient(135deg, var(--green-700), var(--green-500));
+  border-radius: var(--radius-2xl);
+  padding: var(--space-12);
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission__visual-box::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mission__visual-box::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -30px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mission__quote-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  backdrop-filter: blur(8px);
+  max-width: 340px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.mission__quote-icon {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+  opacity: 0.8;
+}
+
+.mission__quote-text {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--white);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: var(--space-4);
+}
+
+.mission__quote-ref {
+  font-size: var(--text-xs);
+  color: var(--green-200);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .mission__inner { grid-template-columns: 1fr; gap: var(--space-10); }
+  .mission__stats { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ========== PROGRAMS ========== */
+.programs {
+  padding: var(--section-padding) 0;
+  background: var(--green-900);
+}
+
+.programs__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.programs__header .section-title {
+  color: var(--white);
+}
+
+.programs__header .section-desc {
+  color: var(--green-300);
+  margin: var(--space-4) auto 0;
+}
+
+.programs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.program-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.program-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-500), var(--green-400));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.program-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.program-card:hover::before { opacity: 1; }
+
+.program-card__icon {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+}
+
+.program-card__title {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--white);
+  margin-bottom: var(--space-1);
+}
+
+.program-card__en {
+  font-size: var(--text-xs);
+  color: var(--gold-400);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.program-card__duration {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  background: rgba(201, 168, 76, 0.15);
+  border-radius: 100px;
+  font-size: var(--text-xs);
+  color: var(--gold-400);
+  font-weight: 500;
+  margin-bottom: var(--space-4);
+}
+
+.program-card__desc {
+  font-size: var(--text-sm);
+  color: var(--green-300);
+  line-height: 1.7;
+}
+
+.program-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.program-card__tag {
+  padding: var(--space-1) var(--space-3);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  color: var(--green-200);
+}
+
+@media (max-width: 1024px) {
+  .programs__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .programs__grid { grid-template-columns: 1fr; }
+}
+
+/* ========== CURRICULUM ========== */
+.curriculum {
+  padding: var(--section-padding) 0;
+  background: var(--cream);
+}
+
+.curriculum__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.curriculum__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.curriculum-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  position: relative;
+  border: 1px solid rgba(26, 58, 42, 0.06);
+}
+
+.curriculum-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.curriculum-card__week {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--green-700);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-3);
+}
+
+.curriculum-card__icon {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+}
+
+.curriculum-card__title {
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--green-900);
+  margin-bottom: var(--space-2);
+}
+
+.curriculum-card__verse {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  background: var(--green-50);
+  border-radius: 100px;
+  font-size: var(--text-xs);
+  color: var(--green-700);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.curriculum-card__desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.curriculum-card__num {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--green-100);
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .curriculum__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .curriculum__grid { grid-template-columns: 1fr; }
+}
+
+/* ========== MEDIA ========== */
+.media {
+  padding: var(--section-padding) 0;
+  background: var(--cream-dark);
+}
+
+.media__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.media__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.media__featured {
+  grid-row: 1 / 3;
+  background: linear-gradient(135deg, var(--green-800), var(--green-700));
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 420px;
+  position: relative;
+  overflow: hidden;
+}
+
+.media__featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, transparent 30%, rgba(26, 58, 42, 0.8));
+}
+
+.media__featured-badge {
+  position: absolute;
+  top: var(--space-6);
+  left: var(--space-6);
+  padding: var(--space-1) var(--space-4);
+  background: rgba(201, 168, 76, 0.9);
+  color: var(--green-900);
+  border-radius: 100px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.media__featured-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  z-index: 1;
+}
+
+.media__featured:hover .media__featured-play {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.media__featured-play::after {
+  content: '';
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent white;
+  margin-left: 4px;
+}
+
+.media__featured-content {
+  position: relative;
+  z-index: 1;
+}
+
+.media__featured-tag {
+  font-size: var(--text-xs);
+  color: var(--gold-400);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.media__featured-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.media__featured-desc {
+  font-size: var(--text-sm);
+  color: var(--green-200);
+  line-height: 1.6;
+}
+
+.media__card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  border: 1px solid rgba(26, 58, 42, 0.06);
+}
+
+.media__card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.media__card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-2xl);
+  flex-shrink: 0;
+}
+
+.media__card-icon--green { background: var(--green-50); }
+.media__card-icon--gold { background: rgba(201, 168, 76, 0.1); }
+.media__card-icon--sky { background: rgba(107, 163, 199, 0.1); }
+.media__card-icon--brown { background: rgba(139, 111, 71, 0.1); }
+
+.media__card-title {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--green-900);
+  margin-bottom: var(--space-1);
+}
+
+.media__card-desc {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .media__grid {
+    grid-template-columns: 1fr;
+  }
+  .media__featured { min-height: 300px; }
+}
+
+/* ========== TELEGRAM ========== */
+.telegram {
+  padding: var(--section-padding) 0;
+  background: linear-gradient(135deg, #1a4a6a 0%, #2a6a9a 50%, #3a80b0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.telegram::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.telegram__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.telegram__header .section-title {
+  color: var(--white);
+  margin-bottom: var(--space-6);
+}
+
+.telegram__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.telegram__feature {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.telegram__feature-icon {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+}
+
+.telegram__feature-title {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--white);
+  margin-bottom: var(--space-1);
+}
+
+.telegram__feature-desc {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+/* Bot card */
+.telegram__bot {
+  background: var(--white);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+}
+
+.telegram__bot-avatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #0088cc, #00aadd);
+  border-radius: 50%;
+  margin: 0 auto var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+}
+
+.telegram__bot-name {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--green-900);
+  margin-bottom: var(--space-1);
+}
+
+.telegram__bot-handle {
+  font-size: var(--text-sm);
+  color: #0088cc;
+  margin-bottom: var(--space-6);
+}
+
+.telegram__bot-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-6);
+}
+
+.telegram__bot-capabilities {
+  text-align: left;
+  margin-bottom: var(--space-8);
+}
+
+.telegram__bot-capability {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.telegram__bot-capability:last-child { border-bottom: none; }
+
+.telegram__bot-capability span:first-child {
+  width: 28px;
+  height: 28px;
+  background: var(--green-50);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  flex-shrink: 0;
+}
+
+.btn--telegram {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-8);
+  background: #0088cc;
+  color: var(--white);
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.btn--telegram:hover {
+  background: #006699;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 136, 204, 0.3);
+}
+
+@media (max-width: 768px) {
+  .telegram__inner { grid-template-columns: 1fr; }
+  .telegram__features { grid-template-columns: 1fr; }
+}
+
+/* ========== INTERNAL ========== */
+.internal {
+  padding: var(--section-padding) 0;
+  background: var(--green-800);
+}
+
+.internal__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.internal__header .section-title { color: var(--white); }
+.internal__header .section-desc { color: var(--green-300); margin: var(--space-4) auto 0; }
+
+.internal__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.internal-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  transition: all var(--transition-base);
+}
+
+.internal-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+.internal-card__icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(201, 168, 76, 0.15);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-4);
+}
+
+.internal-card__title {
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-2);
+}
+
+.internal-card__desc {
+  font-size: var(--text-sm);
+  color: var(--green-300);
+  line-height: 1.7;
+}
+
+@media (max-width: 1024px) {
+  .internal__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .internal__grid { grid-template-columns: 1fr; }
+}
+
+/* ========== APPLICATION FORM ========== */
+.apply {
+  padding: var(--section-padding) 0;
+  background: var(--cream);
+}
+
+.apply__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.apply__info .section-title {
+  color: var(--green-900);
+  margin-bottom: var(--space-6);
+}
+
+.apply__benefits {
+  margin-top: var(--space-8);
+}
+
+.apply__benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid rgba(26, 58, 42, 0.08);
+}
+
+.apply__benefit:last-child { border-bottom: none; }
+
+.apply__benefit-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--green-50);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-lg);
+  flex-shrink: 0;
+}
+
+.apply__benefit-title {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--green-900);
+  margin-bottom: var(--space-1);
+}
+
+.apply__benefit-desc {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Form */
+.apply__form-wrapper {
+  background: var(--white);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(26, 58, 42, 0.06);
+}
+
+.apply__form-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--green-900);
+  margin-bottom: var(--space-8);
+}
+
+.form-group {
+  margin-bottom: var(--space-5);
+}
+
+.form-group label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid rgba(26, 58, 42, 0.15);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background: var(--cream-light);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(74, 140, 111, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.btn--submit {
+  width: 100%;
+  padding: var(--space-4) var(--space-8);
+  background: var(--green-700);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  border: none;
+  transition: all var(--transition-fast);
+  margin-top: var(--space-4);
+}
+
+.btn--submit:hover {
+  background: var(--green-600);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(45, 90, 63, 0.3);
+}
+
+.form-notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: var(--space-4);
+  background: rgba(0, 136, 204, 0.05);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.form-notice span:first-child { font-size: var(--text-lg); flex-shrink: 0; }
+
+/* Form success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: var(--space-12) var(--space-8);
+}
+
+.form-success.show { display: block; }
+.form-success__icon { font-size: 3rem; margin-bottom: var(--space-4); }
+.form-success__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--green-700);
+  margin-bottom: var(--space-3);
+}
+.form-success__desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .apply__inner { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ========== SUSTAINABILITY ========== */
+.sustainability {
+  padding: var(--section-padding) 0;
+  background: var(--cream-dark);
+}
+
+.sustainability__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.sustainability__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.sustain-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  border: 1px solid rgba(26, 58, 42, 0.06);
+}
+
+.sustain-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.sustain-card__icon {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+}
+
+.sustain-card__title {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--green-900);
+  margin-bottom: var(--space-3);
+}
+
+.sustain-card__desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.sustain-card__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.sustain-card__item {
+  padding: var(--space-1) var(--space-3);
+  background: var(--green-50);
+  border-radius: 100px;
+  font-size: var(--text-xs);
+  color: var(--green-700);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .sustainability__grid { grid-template-columns: 1fr; }
+}
+
+/* ========== INSTAGRAM ========== */
+.instagram {
+  padding: var(--section-padding) 0;
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.instagram::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.instagram__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.instagram__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.instagram__header .section-title {
+  color: var(--white);
+}
+
+.instagram__header .section-desc {
+  color: rgba(255, 255, 255, 0.8);
+  margin: var(--space-4) auto 0;
+}
+
+.instagram__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.instagram__strategies {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.insta-strategy {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  backdrop-filter: blur(8px);
+}
+
+.insta-strategy__icon {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+
+.insta-strategy__title {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--white);
+  margin-bottom: var(--space-2);
+}
+
+.insta-strategy__desc {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+/* Instagram mock */
+.instagram__mock {
+  background: var(--white);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.insta-mock__header {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.insta-mock__avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--green-500), var(--gold-500));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.insta-mock__name {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.insta-mock__handle {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.insta-mock__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: var(--space-4);
+  text-align: center;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.insta-mock__stat-val {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.insta-mock__stat-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.insta-mock__bio {
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.insta-mock__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.insta-mock__post {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-2xl);
+}
+
+@media (max-width: 768px) {
+  .instagram__content { grid-template-columns: 1fr; }
+  .instagram__strategies { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .instagram__strategies { grid-template-columns: 1fr; }
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: var(--space-16) 0 var(--space-8);
+  background: var(--green-900);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: var(--space-10);
+  margin-bottom: var(--space-12);
+}
+
+.footer__brand-name {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--white);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer__brand-desc {
+  font-size: var(--text-sm);
+  color: var(--green-300);
+  line-height: 1.7;
+  margin-bottom: var(--space-6);
+}
+
+.footer__socials {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.footer__social {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  color: var(--green-300);
+  transition: all var(--transition-fast);
+}
+
+.footer__social:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.footer__col-title {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--white);
+  margin-bottom: var(--space-5);
+}
+
+.footer__link {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--green-300);
+  padding: var(--space-2) 0;
+  transition: color var(--transition-fast);
+}
+
+.footer__link:hover {
+  color: var(--gold-400);
+}
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-8);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.footer__copy {
+  font-size: var(--text-xs);
+  color: var(--green-300);
+}
+
+.footer__attribution {
+  font-size: var(--text-xs);
+  color: var(--green-300);
+  transition: color var(--transition-fast);
+}
+
+.footer__attribution:hover {
+  color: var(--gold-400);
+}
+
+@media (max-width: 768px) {
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- Enhanced Meta Tags for SEO & Social Media -->
+<meta property="og:image" content="https://via.placeholder.com/1200x630?text=Seeds+%26+Life">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="씨앗과 생명 Seeds & Life">
+<meta name="twitter:description" content="씨앗과 기후, 생명과 성경을 연결하는 비영리 어린이 교육 플랫폼">
+<meta name="twitter:image" content="https://via.placeholder.com/1200x630?text=Seeds+%26+Life">
+
+<!-- Font Display Optimization -->
+<style>
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-display: swap;
+}
+</style>
+
+<!-- Preload Key Resources -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+
+<!-- JSON-LD Structured Data for NonprofitOrganization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "NonprofitOrganization",
+  "name": "씨앗과 생명 Seeds & Life",
+  "description": "씨앗과 기후, 생명과 성경을 연결하는 비영리 어린이 교육 플랫폼",
+  "url": "https://seedsandlife.org",
+  "sameAs": [
+    "https://www.facebook.com/seedsandlife",
+    "https://www.instagram.com/seedsandlife"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Customer Service",
+    "email": "info@seedsandlife.org"
+  }
+}
+</script>
+
+<!-- Enhanced Accessibility & Performance Styles -->
+<style>
+/* ===== Reduced Motion Support ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== Focus Visible Styles for Keyboard Navigation ===== */
+:focus-visible {
+  outline: 3px solid var(--green-500, #4a8c6f);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--green-500, #4a8c6f);
+  outline-offset: 2px;
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===== Back to Top Button ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  background-color: var(--green-500, #4a8c6f);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top:hover {
+  background-color: var(--green-600, #3a7254);
+  transform: translateY(-2px);
+}
+
+.back-to-top:active {
+  transform: translateY(0);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Reduce motion for back-to-top */
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: none;
+  }
+}
+
+/* ===== Scroll Progress Indicator ===== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--green-400, #6aad8a), var(--green-600, #3a7254));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+/* ===== Scroll Spy - Active Nav Link ===== */
+nav a.scroll-spy-active {
+  color: var(--green-600, #3a7254);
+  font-weight: 600;
+  border-bottom: 3px solid var(--green-500, #4a8c6f);
+  padding-bottom: 4px;
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  nav,
+  footer .social-links,
+  .back-to-top,
+  .scroll-progress {
+    display: none !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.9em;
+    color: #666;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+}
+
+/* ===== Smooth Scroll Offset Fix for Fixed Nav ===== */
+html {
+  scroll-padding-top: 80px;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 60px;
+  }
+}
+
+/* ===== Enhanced Form Validation UX ===== */
+.form-error {
+  border-color: #e74c3c !important;
+  background-color: #fadbd8;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.form-error ~ .error-message {
+  display: block;
+}
+
+input:invalid:not(:placeholder-shown) {
+  border-color: #e74c3c;
+  background-color: #fadbd8;
+}
+
+input:valid:not(:placeholder-shown) {
+  border-color: #27ae60;
+  background-color: #d5f4e6;
+}
+
+/* ===== Counter Animation ===== */
+.counter {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--green-600, #3a7254);
+}
+
+.counter-label {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+</style>
+
+</head>
+<body>
+<!-- Back to Portfolio Navigation -->
+<div id="back-to-portfolio" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(26,58,42,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);font-family:'Noto Sans KR',sans-serif;">
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:8px;color:#b8dcc8;font-size:0.8rem;font-weight:500;text-decoration:none;letter-spacing:0.02em;transition:color 0.2s;" onmouseover="this.style.color='#e2cf94'" onmouseout="this.style.color='#b8dcc8'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Portfolio
+  </a>
+  <span style="font-size:0.7rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;">PORTFOLIO HUB</span>
+</div>
+
+<!-- Skip Navigation Link for Accessibility -->
+<a href="#main-content" class="skip-to-main" style="
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+">Skip to main content</a>
+
+<!-- Scroll Progress Indicator -->
+<div class="scroll-progress"></div>
+
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav" id="nav" role="navigation" aria-label="메인 네비게이션">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo" aria-label="씨앗과 생명 홈">
+      <div class="nav__logo-icon">
+        <div class="seed"></div>
+        <div class="leaf"></div>
+      </div>
+      <span>씨앗과 생명</span>
+    </a>
+
+    <div class="nav__links">
+      <a href="#mission" class="nav__link">소개</a>
+      <a href="#programs" class="nav__link">프로그램</a>
+      <a href="#media" class="nav__link">미디어</a>
+      <a href="#apply" class="nav__link">신청</a>
+      <a href="#sustainability" class="nav__link">지속가능성</a>
+      <a href="#apply" class="nav__cta">프로그램 신청</a>
+    </div>
+
+    <button class="nav__hamburger" id="hamburger" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="nav__mobile" id="mobileMenu">
+    <a href="#mission" class="nav__mobile-link">소개</a>
+    <a href="#programs" class="nav__mobile-link">프로그램</a>
+    <a href="#media" class="nav__mobile-link">미디어</a>
+    <a href="#apply" class="nav__mobile-link">신청</a>
+    <a href="#sustainability" class="nav__mobile-link">지속가능성</a>
+    <a href="#apply" class="btn btn--primary" style="margin-top: var(--space-4);">프로그램 신청</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+  <div class="container--wide">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <span class="badge hero__badge">🌱 비영리 교육 플랫폼</span>
+        <h1 class="hero__title">Seeds <em>&</em> Life</h1>
+        <p class="hero__subtitle">씨앗과 기후, 생명과 성경을 연결합니다</p>
+        <p class="hero__desc">
+          바이오필리아 탐구와 성경적 세계관을 통해 아이들이 생명의 경이로움을 발견하고,
+          기후와 환경에 대한 감수성을 키워가는 교육 프로그램을 제공합니다.
+        </p>
+        <div class="hero__ctas">
+          <a href="#apply" class="btn btn--primary">프로그램 신청 →</a>
+          <a href="#programs" class="btn btn--outline">프로그램 살펴보기</a>
+        </div>
+      </div>
+
+      <div class="hero__cards">
+        <div class="hero__card">
+          <div class="hero__card-icon">🌾</div>
+          <div class="hero__card-title">씨앗 아카이브</div>
+          <div class="hero__card-desc">50종 이상의 토종 씨앗 데이터베이스와 보존 기록</div>
+        </div>
+        <div class="hero__card">
+          <div class="hero__card-icon">📖</div>
+          <div class="hero__card-title">성경 프로그램</div>
+          <div class="hero__card-desc">성경 속 식물과 생명의 이야기를 탐구하는 교육</div>
+        </div>
+        <div class="hero__card">
+          <div class="hero__card-icon">🎬</div>
+          <div class="hero__card-title">다큐멘터리</div>
+          <div class="hero__card-desc">어린이가 직접 만드는 씨앗과 생명 다큐멘터리</div>
+        </div>
+        <div class="hero__card">
+          <div class="hero__card-icon">🌿</div>
+          <div class="hero__card-title">바이오필리아</div>
+          <div class="hero__card-desc">자연과의 교감을 통한 생태 감수성 교육</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MISSION ========== -->
+<section class="mission" id="mission">
+  <div class="container">
+    <div class="mission__inner">
+      <div class="mission__text reveal">
+        <span class="overline">Our Mission</span>
+        <h2 class="section-title">모든 생명은<br>씨앗에서 시작됩니다</h2>
+        <p class="section-desc">
+          씨앗과 생명은 바이오필리아(생명 사랑)와 성경적 세계관을 연결하여
+          어린이들에게 생명의 가치를 가르칩니다. 토종 씨앗 보존, 기후 교육, 성경 속 식물 탐구를 통해
+          아이들이 창조 세계의 아름다움과 책임을 깨닫도록 돕습니다.
+        </p>
+        <div class="mission__stats">
+          <div class="mission__stat">
+            <div class="mission__stat-value">12주</div>
+            <div class="mission__stat-label">커리큘럼</div>
+          </div>
+          <div class="mission__stat">
+            <div class="mission__stat-value">6-12세</div>
+            <div class="mission__stat-label">대상 연령</div>
+          </div>
+          <div class="mission__stat">
+            <div class="mission__stat-value">50+</div>
+            <div class="mission__stat-label">토종 씨앗</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission__visual reveal reveal-delay-2">
+        <div class="mission__visual-box">
+          <div class="mission__quote-card">
+            <div class="mission__quote-icon">🌱</div>
+            <p class="mission__quote-text">
+              "땅이 스스로 열매를 맺되 처음에는 싹이요<br>
+              다음에는 이삭이요<br>
+              그 다음에는 이삭에 충실한 곡식이라"
+            </p>
+            <span class="mission__quote-ref">— 마가복음 4:28</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROGRAMS ========== -->
+<section class="programs" id="programs">
+  <div class="container--wide">
+    <div class="programs__header reveal">
+      <span class="overline overline--light">Programs</span>
+      <h2 class="section-title">씨앗에서 열매까지, 함께하는 여정</h2>
+      <p class="section-desc section-desc--light">
+        씨앗과 생명의 6가지 핵심 프로그램을 통해 아이들은 자연과 신앙, 과학과 예술을 하나로 경험합니다.
+      </p>
+    </div>
+
+    <div class="programs__grid">
+      <div class="program-card reveal">
+        <div class="program-card__icon">🌱</div>
+        <div class="program-card__title">씨앗 탐험대</div>
+        <div class="program-card__en">Seeds Explorer</div>
+        <span class="program-card__duration">6주 과정</span>
+        <p class="program-card__desc">
+          토종 씨앗의 다양성과 기후 과학의 관계를 탐구합니다. 직접 씨앗을 관찰하고, 파종하며,
+          성장 과정을 기록하는 체험형 과학 프로그램입니다.
+        </p>
+        <div class="program-card__tags">
+          <span class="program-card__tag">토종씨앗</span>
+          <span class="program-card__tag">기후과학</span>
+          <span class="program-card__tag">관찰학습</span>
+        </div>
+      </div>
+
+      <div class="program-card reveal reveal-delay-1">
+        <div class="program-card__icon">📖</div>
+        <div class="program-card__title">생명의 말씀 정원</div>
+        <div class="program-card__en">Scripture Garden</div>
+        <span class="program-card__duration">12주 과정</span>
+        <p class="program-card__desc">
+          성경에 등장하는 식물과 농업 비유를 통해 신앙의 기초를 세웁니다.
+          창세기부터 갈라디아서까지, 씨앗의 비유로 배우는 성경 교육입니다.
+        </p>
+        <div class="program-card__tags">
+          <span class="program-card__tag">성경식물</span>
+          <span class="program-card__tag">신앙교육</span>
+          <span class="program-card__tag">비유학습</span>
+        </div>
+      </div>
+
+      <div class="program-card reveal reveal-delay-2">
+        <div class="program-card__icon">🎬</div>
+        <div class="program-card__title">꼬마 다큐멘터리스트</div>
+        <div class="program-card__en">Little Documentarist</div>
+        <span class="program-card__duration">8주 과정</span>
+        <p class="program-card__desc">
+          씨앗과 생명을 주제로 아이들이 직접 다큐멘터리를 기획하고 촬영합니다.
+          스토리텔링, 촬영 기초, 편집까지 미디어 리터러시를 키웁니다.
+        </p>
+        <div class="program-card__tags">
+          <span class="program-card__tag">미디어교육</span>
+          <span class="program-card__tag">스토리텔링</span>
+          <span class="program-card__tag">영상제작</span>
+        </div>
+      </div>
+
+      <div class="program-card reveal">
+        <div class="program-card__icon">🌿</div>
+        <div class="program-card__title">바이오필리아 클래스</div>
+        <div class="program-card__en">Biophilia Class</div>
+        <span class="program-card__duration">4주 과정</span>
+        <p class="program-card__desc">
+          자연 속에서 오감으로 생명을 느끼는 감각 교육입니다. 숲, 정원, 텃밭에서
+          직접 체험하며 생태적 감수성과 바이오필리아를 경험합니다.
+        </p>
+        <div class="program-card__tags">
+          <span class="program-card__tag">자연관찰</span>
+          <span class="program-card__tag">감각교육</span>
+          <span class="program-card__tag">생태체험</span>
+        </div>
+      </div>
+
+      <div class="program-card reveal reveal-delay-1">
+        <div class="program-card__icon">🌍</div>
+        <div class="program-card__title">기후 수호자</div>
+        <div class="program-card__en">Climate Guardian</div>
+        <span class="program-card__duration">6주 과정</span>
+        <p class="program-card__desc">
+          기후 변화가 씨앗과 생태계에 미치는 영향을 탐구하고, 씨앗 보존 활동을 통해
+          환경 수호자로서의 사명감을 키웁니다.
+        </p>
+        <div class="program-card__tags">
+          <span class="program-card__tag">기후변화</span>
+          <span class="program-card__tag">씨앗보존</span>
+          <span class="program-card__tag">환경교육</span>
+        </div>
+      </div>
+
+      <div class="program-card reveal reveal-delay-2">
+        <div class="program-card__icon">🏕️</div>
+        <div class="program-card__title">Little Explorers 캠프</div>
+        <div class="program-card__en">Seasonal Camp</div>
+        <span class="program-card__duration">계절별 3일</span>
+        <p class="program-card__desc">
+          봄·여름·가을·겨울, 계절의 씨앗과 생명을 몸으로 경험하는 캠프입니다.
+          자연, 성경, 과학, 예술을 아우르는 전인교육 프로그램입니다.
+        </p>
+        <div class="program-card__tags">
+          <span class="program-card__tag">전인교육</span>
+          <span class="program-card__tag">계절캠프</span>
+          <span class="program-card__tag">통합학습</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CURRICULUM ========== -->
+<section class="curriculum" id="curriculum">
+  <div class="container--wide">
+    <div class="curriculum__header reveal">
+      <span class="overline">Curriculum Preview</span>
+      <h2 class="section-title">생명의 말씀 정원 · 12주 커리큘럼</h2>
+      <p class="section-desc" style="margin: var(--space-4) auto 0;">
+        성경 속 씨앗의 비유를 따라, 4단계로 구성된 12주간의 여정입니다.
+      </p>
+    </div>
+
+    <div class="curriculum__grid">
+      <div class="curriculum-card reveal">
+        <span class="curriculum-card__num">01</span>
+        <div class="curriculum-card__week">WEEK 1-3</div>
+        <div class="curriculum-card__icon">🌱</div>
+        <h3 class="curriculum-card__title">씨앗의 시작</h3>
+        <span class="curriculum-card__verse">창세기 1:11-12</span>
+        <p class="curriculum-card__desc">
+          하나님이 창조하신 첫 번째 씨앗의 이야기. 다양한 씨앗을 관찰하고,
+          생명의 시작에 대한 경이로움을 배웁니다.
+        </p>
+      </div>
+
+      <div class="curriculum-card reveal reveal-delay-1">
+        <span class="curriculum-card__num">02</span>
+        <div class="curriculum-card__week">WEEK 4-6</div>
+        <div class="curriculum-card__icon">🌾</div>
+        <h3 class="curriculum-card__title">성장과 인내</h3>
+        <span class="curriculum-card__verse">마태복음 13:31</span>
+        <p class="curriculum-card__desc">
+          겨자씨의 비유로 배우는 인내와 성장. 작은 씨앗이 큰 나무가 되는 과정을 통해
+          믿음의 성장을 이해합니다.
+        </p>
+      </div>
+
+      <div class="curriculum-card reveal reveal-delay-2">
+        <span class="curriculum-card__num">03</span>
+        <div class="curriculum-card__week">WEEK 7-9</div>
+        <div class="curriculum-card__icon">🌍</div>
+        <h3 class="curriculum-card__title">돌봄과 청지기</h3>
+        <span class="curriculum-card__verse">창세기 2:15</span>
+        <p class="curriculum-card__desc">
+          에덴동산을 경작하고 지키라는 사명. 환경 돌봄의 책임과
+          청지기 의식을 실천적으로 배웁니다.
+        </p>
+      </div>
+
+      <div class="curriculum-card reveal reveal-delay-3">
+        <span class="curriculum-card__num">04</span>
+        <div class="curriculum-card__week">WEEK 10-12</div>
+        <div class="curriculum-card__icon">🌸</div>
+        <h3 class="curriculum-card__title">열매와 나눔</h3>
+        <span class="curriculum-card__verse">갈라디아서 6:9</span>
+        <p class="curriculum-card__desc">
+          포기하지 않으면 때가 되어 거두리라. 배움의 열매를 나누고,
+          씨앗을 공동체와 함께 보존하는 프로젝트를 완성합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MEDIA ========== -->
+<section class="media" id="media">
+  <div class="container--wide">
+    <div class="media__header reveal">
+      <span class="overline">Media Platform</span>
+      <h2 class="section-title">씨앗과 생명 미디어</h2>
+      <p class="section-desc" style="margin: var(--space-4) auto 0;">
+        다큐멘터리, 교육 영상, 팟캐스트를 통해 씨앗과 생명의 이야기를 전합니다.
+      </p>
+    </div>
+
+    <div class="media__grid">
+      <div class="media__featured reveal">
+        <span class="media__featured-badge">FEATURED</span>
+        <div class="media__featured-play"></div>
+        <div class="media__featured-content">
+          <div class="media__featured-tag">다큐멘터리 시리즈</div>
+          <h3 class="media__featured-title">씨앗이 들려주는 이야기</h3>
+          <p class="media__featured-desc">
+            한반도의 토종 씨앗을 찾아 떠나는 여정. 할머니의 장독대에서 시작된 씨앗 한 알이
+            다음 세대에게 전하는 생명의 메시지를 담았습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="media__card reveal reveal-delay-1">
+        <div class="media__card-icon media__card-icon--green">🌿</div>
+        <div>
+          <div class="media__card-title">계절의 교실</div>
+          <p class="media__card-desc">사계절 자연 관찰 다큐멘터리 시리즈</p>
+        </div>
+      </div>
+
+      <div class="media__card reveal reveal-delay-2">
+        <div class="media__card-icon media__card-icon--gold">📚</div>
+        <div>
+          <div class="media__card-title">성경 속 식물도감</div>
+          <p class="media__card-desc">성경에 등장하는 식물 이야기 교육 영상</p>
+        </div>
+      </div>
+
+      <div class="media__card reveal reveal-delay-1">
+        <div class="media__card-icon media__card-icon--sky">📝</div>
+        <div>
+          <div class="media__card-title">꼬마 탐험가 일기</div>
+          <p class="media__card-desc">어린이들이 직접 촬영한 자연 관찰 브이로그</p>
+        </div>
+      </div>
+
+      <div class="media__card reveal reveal-delay-2">
+        <div class="media__card-icon media__card-icon--brown">🎙️</div>
+        <div>
+          <div class="media__card-title">씨앗 라디오</div>
+          <p class="media__card-desc">씨앗과 생명 이야기를 담은 오디오 콘텐츠</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TELEGRAM ========== -->
+<section class="telegram" id="telegram">
+  <div class="container--wide">
+    <div class="telegram__inner">
+      <div class="telegram__header reveal">
+        <span class="overline overline--light">Connect</span>
+        <h2 class="section-title" style="color: var(--white);">텔레그램으로 연결하세요</h2>
+        <p class="section-desc" style="color: rgba(255,255,255,0.7);">
+          텔레그램 봇을 통해 프로그램 신청부터 일정 관리, 커뮤니티 소통까지 한 곳에서 편리하게 이용하세요.
+        </p>
+
+        <div class="telegram__features">
+          <div class="telegram__feature">
+            <div class="telegram__feature-icon">🔔</div>
+            <div class="telegram__feature-title">프로그램 신청 알림</div>
+            <p class="telegram__feature-desc">새로운 프로그램 오픈 시 즉시 알림</p>
+          </div>
+          <div class="telegram__feature">
+            <div class="telegram__feature-icon">📅</div>
+            <div class="telegram__feature-title">일정 자동 안내</div>
+            <p class="telegram__feature-desc">수업 일정과 준비물 자동 리마인더</p>
+          </div>
+          <div class="telegram__feature">
+            <div class="telegram__feature-icon">💬</div>
+            <div class="telegram__feature-title">커뮤니티 채널</div>
+            <p class="telegram__feature-desc">학부모·교사 소통 커뮤니티 채널</p>
+          </div>
+          <div class="telegram__feature">
+            <div class="telegram__feature-icon">🤖</div>
+            <div class="telegram__feature-title">운영진 관리봇</div>
+            <p class="telegram__feature-desc">출석·평가·피드백 자동화 시스템</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="telegram__bot reveal reveal-delay-2">
+        <div class="telegram__bot-avatar">🌱</div>
+        <div class="telegram__bot-name">씨앗과 생명 Bot</div>
+        <div class="telegram__bot-handle">@SeedsAndLife_bot</div>
+        <p class="telegram__bot-desc">
+          씨앗과 생명의 공식 텔레그램 봇입니다. 프로그램 정보 확인, 신청, 일정 관리를
+          채팅으로 간편하게 이용할 수 있습니다.
+        </p>
+        <div class="telegram__bot-capabilities">
+          <div class="telegram__bot-capability">
+            <span>✅</span>
+            <span>프로그램 신청 및 확인 자동 처리</span>
+          </div>
+          <div class="telegram__bot-capability">
+            <span>📋</span>
+            <span>수업 일정 조회 및 리마인더 설정</span>
+          </div>
+          <div class="telegram__bot-capability">
+            <span>📊</span>
+            <span>아이 출석 현황 및 활동 리포트</span>
+          </div>
+          <div class="telegram__bot-capability">
+            <span>❓</span>
+            <span>FAQ 자동 응답 및 상담 연결</span>
+          </div>
+        </div>
+        <a href="https://t.me/SeedsAndLife_bot" target="_blank" rel="noopener noreferrer" class="btn--telegram">
+          텔레그램 봇 시작하기 →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INTERNAL ========== -->
+<section class="internal" id="internal">
+  <div class="container--wide">
+    <div class="internal__header reveal">
+      <span class="overline overline--light">Operations</span>
+      <h2 class="section-title">내부 커뮤니케이션 허브</h2>
+      <p class="section-desc">
+        운영진을 위한 통합 도구로 효율적인 프로그램 관리와 소통을 지원합니다.
+      </p>
+    </div>
+
+    <div class="internal__grid">
+      <div class="internal-card reveal">
+        <div class="internal-card__icon">📊</div>
+        <h3 class="internal-card__title">대시보드</h3>
+        <p class="internal-card__desc">
+          프로그램 현황, 참여자 통계, 주요 KPI를 한눈에 확인하는 실시간 대시보드
+        </p>
+      </div>
+
+      <div class="internal-card reveal reveal-delay-1">
+        <div class="internal-card__icon">💬</div>
+        <h3 class="internal-card__title">텔레그램 관리채널</h3>
+        <p class="internal-card__desc">
+          운영진 전용 텔레그램 채널을 통한 빠른 의사결정과 업무 공유
+        </p>
+      </div>
+
+      <div class="internal-card reveal reveal-delay-2">
+        <div class="internal-card__icon">📈</div>
+        <h3 class="internal-card__title">KPI 트래킹</h3>
+        <p class="internal-card__desc">
+          참여율, 만족도, 재등록률 등 핵심 성과 지표 자동 추적 및 리포팅
+        </p>
+      </div>
+
+      <div class="internal-card reveal reveal-delay-3">
+        <div class="internal-card__icon">📁</div>
+        <h3 class="internal-card__title">리소스 아카이브</h3>
+        <p class="internal-card__desc">
+          교안, 활동지, 미디어 자료 등 교육 리소스 통합 관리 시스템
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== APPLICATION FORM ========== -->
+<section class="apply" id="apply">
+  <div class="container--wide">
+    <div class="apply__inner">
+      <div class="apply__info reveal">
+        <span class="overline">Apply Now</span>
+        <h2 class="section-title">프로그램 신청</h2>
+        <p class="section-desc">
+          씨앗과 생명의 프로그램에 참여하여 아이에게 특별한 배움의 기회를 선물하세요.
+        </p>
+
+        <div class="apply__benefits">
+          <div class="apply__benefit">
+            <div class="apply__benefit-icon">🎯</div>
+            <div>
+              <div class="apply__benefit-title">맞춤형 프로그램</div>
+              <p class="apply__benefit-desc">아이의 나이와 관심사에 맞는 최적의 교육 과정 추천</p>
+            </div>
+          </div>
+          <div class="apply__benefit">
+            <div class="apply__benefit-icon">📱</div>
+            <div>
+              <div class="apply__benefit-title">텔레그램 알림</div>
+              <p class="apply__benefit-desc">신청 확인부터 일정 안내까지 텔레그램 봇으로 편리하게</p>
+            </div>
+          </div>
+          <div class="apply__benefit">
+            <div class="apply__benefit-icon">💚</div>
+            <div>
+              <div class="apply__benefit-title">비영리 무료</div>
+              <p class="apply__benefit-desc">기본 프로그램은 무료로 제공되는 비영리 교육</p>
+            </div>
+          </div>
+          <div class="apply__benefit">
+            <div class="apply__benefit-icon">👨‍👩‍👧‍👦</div>
+            <div>
+              <div class="apply__benefit-title">커뮤니티</div>
+              <p class="apply__benefit-desc">같은 가치를 공유하는 가정들과 함께하는 교육 공동체</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="apply__form-wrapper reveal reveal-delay-2">
+        <h3 class="apply__form-title">신청서 작성</h3>
+
+        <form id="applicationForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="parentName">보호자 성함 *</label>
+              <input type="text" id="parentName" name="parentName" required placeholder="홍길동">
+            </div>
+            <div class="form-group">
+              <label for="phone">연락처 *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="010-0000-0000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">이메일 *</label>
+            <input type="email" id="email" name="email" required placeholder="example@email.com">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="childName">자녀 이름 *</label>
+              <input type="text" id="childName" name="childName" required placeholder="홍길순">
+            </div>
+            <div class="form-group">
+              <label for="childAge">자녀 나이 *</label>
+              <select id="childAge" name="childAge" required>
+                <option value="" disabled selected>선택하세요</option>
+                <option value="6">6세</option>
+                <option value="7">7세</option>
+                <option value="8">8세</option>
+                <option value="9">9세</option>
+                <option value="10">10세</option>
+                <option value="11">11세</option>
+                <option value="12">12세</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="program">희망 프로그램 *</label>
+            <select id="program" name="program" required>
+              <option value="" disabled selected>프로그램을 선택하세요</option>
+              <option value="seeds-explorer">🌱 씨앗 탐험대 (6주)</option>
+              <option value="scripture-garden">📖 생명의 말씀 정원 (12주)</option>
+              <option value="little-documentarist">🎬 꼬마 다큐멘터리스트 (8주)</option>
+              <option value="biophilia-class">🌿 바이오필리아 클래스 (4주)</option>
+              <option value="climate-guardian">🌍 기후 수호자 (6주)</option>
+              <option value="little-explorers">🏕️ Little Explorers 캠프 (계절별 3일)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">추가 메시지</label>
+            <textarea id="message" name="message" placeholder="궁금한 점이나 전달사항을 적어주세요"></textarea>
+          </div>
+
+          <button type="submit" class="btn--submit">신청하기</button>
+
+          <div class="form-notice">
+            <span>💬</span>
+            <span>신청 완료 후 텔레그램 @SeedsAndLife_bot을 통해 확인 메시지가 발송됩니다. 봇을 미리 시작해두시면 더 빠르게 안내 받으실 수 있습니다.</span>
+          </div>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="form-success__icon">🌱</div>
+          <h3 class="form-success__title">신청이 완료되었습니다!</h3>
+          <p class="form-success__desc">
+            텔레그램 @SeedsAndLife_bot을 통해 확인 메시지를 보내드립니다.<br>
+            소중한 관심에 감사드립니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SUSTAINABILITY ========== -->
+<section class="sustainability" id="sustainability">
+  <div class="container--wide">
+    <div class="sustainability__header reveal">
+      <span class="overline">Sustainability</span>
+      <h2 class="section-title">지속가능성 전략</h2>
+      <p class="section-desc" style="margin: var(--space-4) auto 0;">
+        비영리 교육 플랫폼의 장기적 운영을 위한 4가지 전략입니다.
+      </p>
+    </div>
+
+    <div class="sustainability__grid">
+      <div class="sustain-card reveal">
+        <div class="sustain-card__icon">🎓</div>
+        <h3 class="sustain-card__title">교육 프로그램 수익 모델</h3>
+        <p class="sustain-card__desc">
+          기본 프로그램은 무료로 제공하고, 심화 과정과 전문 워크숍을 유료로 운영합니다.
+          기업 CSR 파트너십을 통한 후원 프로그램도 함께 진행합니다.
+        </p>
+        <div class="sustain-card__items">
+          <span class="sustain-card__item">기본 무료</span>
+          <span class="sustain-card__item">심화 유료</span>
+          <span class="sustain-card__item">CSR 파트너십</span>
+        </div>
+      </div>
+
+      <div class="sustain-card reveal reveal-delay-1">
+        <div class="sustain-card__icon">🎬</div>
+        <h3 class="sustain-card__title">미디어 콘텐츠 라이선스</h3>
+        <p class="sustain-card__desc">
+          자체 제작 다큐멘터리와 교육 영상을 학교, 교회, 교육 기관에 배포합니다.
+          콘텐츠 라이선스를 통한 안정적인 수익 구조를 만듭니다.
+        </p>
+        <div class="sustain-card__items">
+          <span class="sustain-card__item">학교 배포</span>
+          <span class="sustain-card__item">교회 배포</span>
+          <span class="sustain-card__item">기관 라이선스</span>
+        </div>
+      </div>
+
+      <div class="sustain-card reveal">
+        <div class="sustain-card__icon">🤝</div>
+        <h3 class="sustain-card__title">파트너십 네트워크</h3>
+        <p class="sustain-card__desc">
+          교회, 농가, 환경 단체와의 파트너십을 통해 교육 장소, 전문 인력,
+          씨앗 자원을 확보하고 함께 성장합니다.
+        </p>
+        <div class="sustain-card__items">
+          <span class="sustain-card__item">교회</span>
+          <span class="sustain-card__item">농가</span>
+          <span class="sustain-card__item">환경단체</span>
+        </div>
+      </div>
+
+      <div class="sustain-card reveal reveal-delay-1">
+        <div class="sustain-card__icon">💚</div>
+        <h3 class="sustain-card__title">커뮤니티 후원 모델</h3>
+        <p class="sustain-card__desc">
+          정기 후원, 씨앗 후원, 재능 봉사 등 다양한 참여 방식을 통해
+          커뮤니티 기반의 지속 가능한 후원 생태계를 구축합니다.
+        </p>
+        <div class="sustain-card__items">
+          <span class="sustain-card__item">정기 후원</span>
+          <span class="sustain-card__item">씨앗 후원</span>
+          <span class="sustain-card__item">재능 봉사</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INSTAGRAM ========== -->
+<section class="instagram" id="instagram">
+  <div class="container--wide">
+    <div class="instagram__inner">
+      <div class="instagram__header reveal">
+        <span class="overline" style="color: rgba(255,255,255,0.7);">Instagram Strategy</span>
+        <h2 class="section-title">인스타그램 전략</h2>
+        <p class="section-desc">
+          시각적 스토리텔링으로 씨앗과 생명의 가치를 전달합니다.
+        </p>
+      </div>
+
+      <div class="instagram__content">
+        <div class="instagram__strategies">
+          <div class="insta-strategy reveal">
+            <div class="insta-strategy__icon">📸</div>
+            <h3 class="insta-strategy__title">비주얼 스토리텔링</h3>
+            <p class="insta-strategy__desc">씨앗의 성장 과정을 아름다운 사진으로 기록하고 공유합니다.</p>
+          </div>
+          <div class="insta-strategy reveal reveal-delay-1">
+            <div class="insta-strategy__icon">🎞️</div>
+            <h3 class="insta-strategy__title">릴스 전략</h3>
+            <p class="insta-strategy__desc">15-60초 숏폼으로 씨앗 심기, 관찰, 수확 과정을 보여줍니다.</p>
+          </div>
+          <div class="insta-strategy reveal reveal-delay-2">
+            <div class="insta-strategy__icon">#️⃣</div>
+            <h3 class="insta-strategy__title">해시태그 전략</h3>
+            <p class="insta-strategy__desc">#씨앗과생명 #토종씨앗 #바이오필리아 #어린이환경교육</p>
+          </div>
+          <div class="insta-strategy reveal reveal-delay-3">
+            <div class="insta-strategy__icon">🤗</div>
+            <h3 class="insta-strategy__title">커뮤니티 빌딩</h3>
+            <p class="insta-strategy__desc">학부모, 교사, 아이들이 함께 만드는 콘텐츠 생태계.</p>
+          </div>
+        </div>
+
+        <div class="instagram__mock reveal reveal-delay-2">
+          <div class="insta-mock__header">
+            <div class="insta-mock__avatar">🌱</div>
+            <div>
+              <div class="insta-mock__name">씨앗과 생명</div>
+              <div class="insta-mock__handle">@seeds_and_life</div>
+            </div>
+          </div>
+          <div class="insta-mock__stats">
+            <div>
+              <div class="insta-mock__stat-val">128</div>
+              <div class="insta-mock__stat-label">게시물</div>
+            </div>
+            <div>
+              <div class="insta-mock__stat-val">2.4K</div>
+              <div class="insta-mock__stat-label">팔로워</div>
+            </div>
+            <div>
+              <div class="insta-mock__stat-val">186</div>
+              <div class="insta-mock__stat-label">팔로잉</div>
+            </div>
+          </div>
+          <div class="insta-mock__bio">
+            🌱 씨앗과 기후, 생명과 성경을 연결합니다<br>
+            🌿 비영리 어린이 교육 플랫폼<br>
+            📍 Seoul, Korea<br>
+            🔗 seedsandlife.org
+          </div>
+          <div class="insta-mock__grid">
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #e0f0e6, #b8dcc8);">🌱</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #f0e6d4, #e2cf94);">🌾</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #d4e8f0, #a8cde1);">🌍</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #e8d4f0, #d4a8e1);">📖</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #f0e0d4, #e1c4a8);">🏕️</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #d4f0e0, #a8e1c4);">🎬</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #e6f0e0, #c8dcb8);">🌿</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #f0f0d4, #e1e1a8);">🌸</div>
+            <div class="insta-mock__post" style="background: linear-gradient(135deg, #e0e6f0, #b8c8dc);">💧</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container--wide">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand-name">
+          <span>🌱</span> 씨앗과 생명
+        </div>
+        <p class="footer__brand-desc">
+          씨앗과 기후, 생명과 성경을 연결하는<br>
+          비영리 어린이 교육 플랫폼
+        </p>
+        <div class="footer__socials">
+          <a href="https://t.me/SeedsAndLife_bot" target="_blank" rel="noopener noreferrer" class="footer__social" aria-label="텔레그램">✈️</a>
+          <a href="https://instagram.com/seeds_and_life" target="_blank" rel="noopener noreferrer" class="footer__social" aria-label="인스타그램">📷</a>
+          <a href="https://youtube.com/@seedsandlife" target="_blank" rel="noopener noreferrer" class="footer__social" aria-label="유튜브">▶️</a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="footer__col-title">프로그램</h4>
+        <a href="#programs" class="footer__link">씨앗 탐험대</a>
+        <a href="#programs" class="footer__link">생명의 말씀 정원</a>
+        <a href="#programs" class="footer__link">꼬마 다큐멘터리스트</a>
+        <a href="#programs" class="footer__link">바이오필리아 클래스</a>
+        <a href="#programs" class="footer__link">기후 수호자</a>
+        <a href="#programs" class="footer__link">Little Explorers 캠프</a>
+      </div>
+
+      <div>
+        <h4 class="footer__col-title">미디어</h4>
+        <a href="#media" class="footer__link">씨앗이 들려주는 이야기</a>
+        <a href="#media" class="footer__link">계절의 교실</a>
+        <a href="#media" class="footer__link">성경 속 식물도감</a>
+        <a href="#media" class="footer__link">꼬마 탐험가 일기</a>
+        <a href="#media" class="footer__link">씨앗 라디오</a>
+      </div>
+
+      <div>
+        <h4 class="footer__col-title">연결</h4>
+        <a href="https://t.me/SeedsAndLife_bot" target="_blank" rel="noopener noreferrer" class="footer__link">텔레그램 봇</a>
+        <a href="https://instagram.com/seeds_and_life" target="_blank" rel="noopener noreferrer" class="footer__link">인스타그램</a>
+        <a href="https://youtube.com/@seedsandlife" target="_blank" rel="noopener noreferrer" class="footer__link">유튜브</a>
+        <a href="#apply" class="footer__link">프로그램 신청</a>
+        <a href="#sustainability" class="footer__link">지속가능성</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 씨앗과 생명 Seeds & Life. All rights reserved.</span>
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" class="footer__attribution">
+        Created with Perplexity Computer
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+(function() {
+  'use strict';
+
+  // ===== Smooth Scroll =====
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        var navH = document.querySelector('.nav').offsetHeight;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - navH;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        // Close mobile menu if open
+        closeMobileMenu();
+      }
+    });
+  });
+
+  // ===== Nav Scroll Effect =====
+  var nav = document.getElementById('nav');
+  var lastScroll = 0;
+
+  function handleNavScroll() {
+    var currentScroll = window.pageYOffset;
+    if (currentScroll > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    lastScroll = currentScroll;
+  }
+
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
+
+  // ===== Mobile Menu =====
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+
+  function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function() {
+    var isOpen = mobileMenu.classList.contains('open');
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      hamburger.classList.add('active');
+      mobileMenu.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // ===== Scroll Reveal (IntersectionObserver) =====
+  var revealElements = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(function(el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    // Fallback: show everything
+    revealElements.forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+
+  // ===== Form Submission =====
+  var form = document.getElementById('applicationForm');
+  var formSuccess = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var formData = {
+      parentName: document.getElementById('parentName').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      childName: document.getElementById('childName').value,
+      childAge: document.getElementById('childAge').value,
+      program: document.getElementById('program').value,
+      message: document.getElementById('message').value
+    };
+
+    // Format message for Telegram
+    var programNames = {
+      'seeds-explorer': '🌱 씨앗 탐험대',
+      'scripture-garden': '📖 생명의 말씀 정원',
+      'little-documentarist': '🎬 꼬마 다큐멘터리스트',
+      'biophilia-class': '🌿 바이오필리아 클래스',
+      'climate-guardian': '🌍 기후 수호자',
+      'little-explorers': '🏕️ Little Explorers 캠프'
+    };
+
+    var text = '🌱 *새로운 프로그램 신청*\n\n'
+      + '👤 보호자: ' + formData.parentName + '\n'
+      + '📞 연락처: ' + formData.phone + '\n'
+      + '📧 이메일: ' + formData.email + '\n'
+      + '👧 자녀: ' + formData.childName + ' (' + formData.childAge + '세)\n'
+      + '📋 프로그램: ' + (programNames[formData.program] || formData.program) + '\n';
+
+    if (formData.message) {
+      text += '💬 메시지: ' + formData.message + '\n';
+    }
+
+    // Telegram Bot API (replace BOT_TOKEN and CHAT_ID)
+    var BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+    var CHAT_ID = 'YOUR_CHAT_ID_HERE';
+    var telegramUrl = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage';
+
+    fetch(telegramUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: text,
+        parse_mode: 'Markdown'
+      })
+    }).then(function() {
+      // Show success regardless (demo mode)
+    }).catch(function() {
+      // Silently handle - show success anyway for demo
+    });
+
+    // Show success state
+    form.style.display = 'none';
+    formSuccess.classList.add('show');
+  });
+
+  // ===== External Links =====
+  document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+    if (!link.getAttribute('target')) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+
+})();
+</script>
+
+
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTopBtn" aria-label="Back to top">↑</button>
+
+
+<!-- Enhanced JavaScript for Accessibility & UX Features -->
+<script>
+(function() {
+  'use strict';
+
+  // ===== Scroll to Top Button =====
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // ===== Scroll Progress Indicator =====
+  const scrollProgress = document.querySelector('.scroll-progress');
+  if (scrollProgress) {
+    window.addEventListener('scroll', function() {
+      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      scrollProgress.style.width = scrolled + '%';
+    });
+  }
+
+  // ===== Scroll Spy - Highlight Active Nav Link =====
+  function activateScrollSpy() {
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+    window.addEventListener('scroll', function() {
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('scroll-spy-active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('scroll-spy-active');
+        }
+      });
+    });
+  }
+  activateScrollSpy();
+
+  // ===== Animated Number Counters =====
+  function animateCounter(element, target, duration = 2000) {
+    if (!element) return;
+    
+    let current = 0;
+    const increment = target / (duration / 16);
+    const updateCounter = () => {
+      current += increment;
+      if (current < target) {
+        element.textContent = Math.floor(current);
+        requestAnimationFrame(updateCounter);
+      } else {
+        element.textContent = target;
+      }
+    };
+    updateCounter();
+  }
+
+  function observeCounters() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          const counterText = entry.target.textContent.trim();
+          const numberMatch = counterText.match(/\d+/);
+          if (numberMatch) {
+            const target = parseInt(numberMatch[0]);
+            animateCounter(entry.target, target);
+            entry.target.dataset.counted = 'true';
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(el => {
+      observer.observe(el);
+    });
+  }
+  observeCounters();
+
+  // ===== ESC to Close Mobile Menu =====
+  const mobileMenu = document.querySelector('nav ul');
+  if (mobileMenu) {
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        mobileMenu.style.display = 'none';
+      }
+    });
+  }
+
+  // ===== Focus Trap in Mobile Menu =====
+  function setupFocusTrap(menuElement) {
+    if (!menuElement) return;
+    
+    const focusableElements = menuElement.querySelectorAll(
+      'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    if (focusableElements.length === 0) return;
+    
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    
+    menuElement.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    });
+  }
+  
+  const navMenu = document.querySelector('nav');
+  if (navMenu) {
+    setupFocusTrap(navMenu);
+  }
+
+  // ===== Enhanced Form Validation UX =====
+  const form = document.querySelector('form');
+  if (form) {
+    const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+    
+    inputs.forEach(input => {
+      const errorMsg = document.createElement('div');
+      errorMsg.className = 'error-message';
+      errorMsg.setAttribute('role', 'alert');
+      input.parentNode.insertBefore(errorMsg, input.nextSibling);
+
+      input.addEventListener('invalid', function(e) {
+        e.preventDefault();
+        input.classList.add('form-error');
+        
+        let message = '필수 항목입니다.'; // Required in Korean
+        if (input.type === 'email' && !input.validity.valid) {
+          message = '올바른 이메일 주소를 입력하세요.'; // Valid email in Korean
+        } else if (input.type === 'tel') {
+          message = '올바른 전화번호를 입력하세요.'; // Valid phone in Korean
+        }
+        
+        errorMsg.textContent = message;
+      });
+
+      input.addEventListener('input', function() {
+        if (input.validity.valid) {
+          input.classList.remove('form-error');
+          errorMsg.textContent = '';
+        }
+      });
+    });
+
+    form.addEventListener('submit', function(e) {
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!input.validity.valid) {
+          isValid = false;
+          input.classList.add('form-error');
+        }
+      });
+      
+      if (!isValid) {
+        e.preventDefault();
+        inputs[0].focus();
+      }
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>

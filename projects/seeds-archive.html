@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEEDS | The Silent Origins Archive</title>
+    <!-- GSAP for High-end Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Noto+Sans+KR:wght@100;300;400;500&display=swap');
+
+        :root {
+            --bg: #0D0D0D;
+            --text: #F4F4F2;
+            --accent: #C5A368; /* Gold/Seed color */
+            --secondary: #6B705C;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Noto Sans KR', sans-serif; 
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        .serif { font-family: 'Bodoni Moda', serif; }
+        .eng { font-family: 'Bodoni Moda', serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.7rem; }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 40px 60px; display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; mix-blend-mode: difference;
+        }
+        .logo { font-size: 1.5rem; letter-spacing: 0.5em; text-decoration: none; color: white; font-weight: 400; }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; position: relative;
+        }
+        .hero-title {
+            font-size: clamp(4rem, 15vw, 12rem); line-height: 0.9;
+            z-index: 2; margin-bottom: 20px;
+        }
+        .hero-title span { display: block; font-style: italic; opacity: 0.5; }
+        .hero-image {
+            position: absolute; width: 30vw; height: 40vw;
+            background: url('https://images.unsplash.com/photo-1505235687559-28b5f54645b7?q=80&w=1000') center/cover;
+            opacity: 0.3; filter: grayscale(100%);
+            z-index: 1; transform: rotate(-5deg);
+        }
+
+        /* Archive Grid */
+        .archive { padding: 200px 60px; }
+        .archive-header {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-bottom: 100px; padding-bottom: 20px; border-bottom: 1px solid var(--border);
+        }
+        .archive-header h2 { font-size: 3rem; text-transform: uppercase; }
+
+        .specimen-list { display: flex; flex-direction: column; }
+        .specimen-item {
+            display: grid; grid-template-columns: 0.5fr 2fr 1fr 1fr;
+            padding: 60px 0; border-bottom: 1px solid var(--border);
+            align-items: center; cursor: pointer; transition: 0.5s;
+        }
+        .specimen-item:hover { background-color: rgba(255, 255, 255, 0.03); padding-left: 20px; }
+
+        .specimen-index { color: var(--accent); }
+        .specimen-name { font-size: 2.5rem; font-weight: 400; }
+        .specimen-name span { font-size: 1rem; color: var(--secondary); margin-left: 20px; font-style: italic; }
+        .specimen-status { text-align: right; }
+        .status-badge {
+            padding: 5px 15px; border: 1px solid var(--accent);
+            border-radius: 20px; color: var(--accent); font-size: 0.6rem;
+        }
+
+        /* Image Preview Modal (Simulated) */
+        .preview-box {
+            position: fixed; pointer-events: none; width: 400px; height: 500px;
+            z-index: 500; opacity: 0; transform: scale(0.8);
+            transition: opacity 0.3s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden; border-radius: 2px;
+        }
+        .preview-box img { width: 100%; height: 100%; object-fit: cover; filter: sepia(30%); }
+
+        /* Story Section */
+        .story {
+            padding: 200px 15vw; text-align: center;
+        }
+        .story h3 { font-size: 4rem; margin-bottom: 50px; line-height: 1.2; }
+        .story p { font-size: 1.2rem; color: var(--secondary); max-width: 800px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
+
+        footer {
+            padding: 100px 60px; display: flex; justify-content: space-between;
+            border-top: 1px solid var(--border); font-size: 0.7rem; color: var(--secondary);
+        }
+
+        /* Scroll Animation Target */
+        .reveal { opacity: 0; transform: translateY(50px); }
+
+    </style>
+</head>
+<body>
+<!-- Back to Portfolio Navigation -->
+<div id="back-to-portfolio" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(26,58,42,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);font-family:'Noto Sans KR',sans-serif;">
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:8px;color:#b8dcc8;font-size:0.8rem;font-weight:500;text-decoration:none;letter-spacing:0.02em;transition:color 0.2s;" onmouseover="this.style.color='#e2cf94'" onmouseout="this.style.color='#b8dcc8'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Portfolio
+  </a>
+  <span style="font-size:0.7rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;">PORTFOLIO HUB</span>
+</div>
+
+
+    <nav>
+        <a href="#" class="logo serif">SEEDS</a>
+        <div class="eng">Archiving the Origins</div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-image"></div>
+        <h1 class="hero-title serif reveal">
+            THE SILENT<span>ORIGINS</span>
+        </h1>
+        <p class="eng reveal" style="margin-top: 30px; opacity: 0.6;">Native Seed Archive / Project 2026</p>
+    </div>
+
+    <section class="archive" id="catalog">
+        <div class="archive-header reveal">
+            <h2 class="serif">Catalog</h2>
+            <p class="eng">Preserving Diversity</p>
+        </div>
+
+        <div class="specimen-list">
+            <div class="specimen-item reveal" data-img="https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?q=80&w=800">
+                <span class="eng specimen-index">001</span>
+                <h3 class="serif specimen-name">앉은뱅이 밀 <span>Triticum aestivum</span></h3>
+                <p class="eng">Origin: Jinju, KR</p>
+                <div class="specimen-status"><span class="status-badge eng">Critical</span></div>
+            </div>
+
+            <div class="specimen-item reveal" data-img="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=800">
+                <span class="eng specimen-index">002</span>
+                <h3 class="serif specimen-name">개구리 차메 <span>Cucumis melo</span></h3>
+                <p class="eng">Origin: Seongnam, KR</p>
+                <div class="specimen-status"><span class="status-badge eng">Rare</span></div>
+            </div>
+
+            <div class="specimen-item reveal" data-img="https://images.unsplash.com/photo-1596561111009-425253818e3c?q=80&w=800">
+                <span class="eng specimen-index">003</span>
+                <h3 class="serif specimen-name">장수 오이 <span>Cucumis sativus</span></h3>
+                <p class="eng">Origin: Jangsu, KR</p>
+                <div class="specimen-status"><span class="status-badge eng">Conserved</span></div>
+            </div>
+
+            <div class="specimen-item reveal" data-img="https://images.unsplash.com/photo-1511519779484-8168f48321ba?q=80&w=800">
+                <span class="eng specimen-index">004</span>
+                <h3 class="serif specimen-name">무릉 콩 <span>Glycine max</span></h3>
+                <p class="eng">Origin: Gangwon, KR</p>
+                <div class="specimen-status"><span class="status-badge eng">Endangered</span></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="preview-box" id="preview">
+        <img src="" alt="Seed Preview" id="preview-img">
+    </div>
+
+    <section class="story reveal">
+        <h3 class="serif">Every seed holds a story of a thousand years.</h3>
+        <p>
+            우리는 흙 속에 잠든 고대 문명의 코드를 읽습니다. 토종 종자는 단순한 식재료를 넘어, 우리 기후와 땅에 최적화된 생존의 데이터베이스입니다. SEEDS 아카이브는 사라져가는 이 침묵하는 기원들을 기록하고, 다음 세대를 위한 생명의 지도를 그립니다.
+        </p>
+    </section>
+
+    <footer>
+        <div class="eng">© 2026 SEEDS Archive Studio</div>
+        <div class="eng">Database / Google Cloud Integrated</div>
+        <div class="eng">Seoul, KR</div>
+    </footer>
+
+    <script>
+        // GSAP Initialization
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Parallax
+        gsap.to(".hero-image", {
+            y: -200,
+            rotation: 10,
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Reveal Animations
+        gsap.utils.toArray(".reveal").forEach(el => {
+            gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                ease: "power4.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                }
+            });
+        });
+
+        // Custom Mouse Preview Interaction
+        const preview = document.getElementById('preview');
+        const previewImg = document.getElementById('preview-img');
+        const items = document.querySelectorAll('.specimen-item');
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(preview, {
+                x: e.clientX + 30,
+                y: e.clientY - 250,
+                duration: 0.5,
+                ease: "power3.out"
+            });
+        });
+
+        items.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const imgSrc = item.getAttribute('data-img');
+                previewImg.src = imgSrc;
+                preview.style.opacity = '1';
+                preview.style.transform = 'scale(1)';
+            });
+            item.addEventListener('mouseleave', () => {
+                preview.style.opacity = '0';
+                preview.style.transform = 'scale(0.8)';
+            });
+        });
+    </script>
+</body>
+</html>
