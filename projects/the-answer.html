@@ -3,32 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Answer — 나그네 | Music Visualizer</title>
-    <meta name="description" content="The Answer by 나그네 — 가사와 함께하는 몰입형 오디오 비주얼라이저">
+    <title>The Answer — NAGEUNE | Music Visualizer</title>
+    <meta name="description" content="The Answer by NAGEUNE (나그네) — Immersive music visualizer with synced lyrics">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700;900&family=Noto+Sans+KR:wght@100;300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Noto+Serif+KR:wght@300;400;500;700&family=Noto+Sans+KR:wght@100;300;400;500&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; }
 
         body {
-            background: #000;
+            background: #0a0a0a;
             color: #fff;
             font-family: 'Noto Sans KR', sans-serif;
             -webkit-font-smoothing: antialiased;
-            cursor: default;
         }
 
-        /* ── Canvas Background ── */
+        /* ── Canvas ── */
         #visualizer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
         }
 
-        /* ── Overlay Gradient ── */
+        /* ── Album BG ── */
+        .album-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            background: url('../images/album-the-answer.png') center center / cover no-repeat;
+            opacity: 0; filter: blur(80px) brightness(0.2) saturate(1.6);
+            transition: opacity 4s ease;
+        }
+        .album-bg.visible { opacity: 0.45; }
+
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            background: radial-gradient(ellipse at 50% 50%, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.85) 100%);
             z-index: 1; pointer-events: none;
         }
 
@@ -36,234 +44,409 @@
         .back-bar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
             padding: 12px 28px; display: flex; align-items: center; justify-content: space-between;
-            background: rgba(0,0,0,0.4); backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
             opacity: 0; transition: opacity 0.4s;
         }
         .back-bar:hover { opacity: 1; }
-        .back-bar a { color: rgba(255,255,255,0.5); font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
+        .back-bar a { color: rgba(255,255,255,0.4); font-size: 0.72rem; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.3s; font-family: 'Cormorant Garamond', serif; letter-spacing: 0.1em; }
         .back-bar a:hover { color: #fff; }
-        .back-bar span { font-size: 0.65rem; color: rgba(255,255,255,0.25); letter-spacing: 0.15em; text-transform: uppercase; }
+        .back-bar span { font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Cormorant Garamond', serif; }
 
-        /* ── Main UI Container ── */
-        .ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; }
-        .ui > * { pointer-events: auto; }
-
-        /* ── Song Info ── */
-        .song-info {
-            text-align: center; margin-bottom: 20px;
-            opacity: 0; transform: translateY(20px);
-            transition: all 1s cubic-bezier(0.16,1,0.3,1);
+        /* ── Main Layout: Left LP + Right Lyrics ── */
+        .main-layout {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; display: flex; align-items: center; justify-content: center;
+            gap: clamp(40px, 6vw, 100px);
+            padding: 80px clamp(30px, 5vw, 80px) 120px;
+            opacity: 0; transition: opacity 1.5s ease;
         }
-        .song-info.visible { opacity: 1; transform: translateY(0); }
-        .song-info .tag {
+        .main-layout.visible { opacity: 1; }
+
+        /* ── LP Section (Center-Left) ── */
+        .lp-section {
+            flex-shrink: 0;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 24px;
+        }
+
+        .lp-disc {
+            width: clamp(240px, 28vw, 360px);
+            height: clamp(240px, 28vw, 360px);
+            border-radius: 50%;
+            position: relative;
+            animation: none;
+        }
+        .lp-disc.spinning { animation: spin 12s linear infinite; }
+
+        .lp-disc .vinyl {
+            width: 100%; height: 100%; border-radius: 50%;
+            background:
+                radial-gradient(circle, #111 18%, transparent 18.5%),
+                radial-gradient(circle, transparent 38%, rgba(30,30,30,0.8) 38.5%, rgba(20,20,20,0.9) 44%, transparent 44.5%),
+                radial-gradient(circle, transparent 58%, rgba(25,25,25,0.6) 58.5%, rgba(15,15,15,0.7) 62%, transparent 62.5%),
+                radial-gradient(circle, transparent 80%, rgba(20,20,20,0.5) 80.5%);
+            box-shadow: 0 0 80px rgba(0,0,0,0.6), inset 0 0 60px rgba(0,0,0,0.4);
+            position: absolute; top: 0; left: 0;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .lp-disc .album-label {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 42%; height: 42%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            background: url('../images/album-the-answer.png') center center / cover;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        .lp-disc .center-hole {
+            position: absolute; top: 50%; left: 50%;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #0a0a0a; border: 2px solid rgba(255,255,255,0.08);
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+
+        /* ── Song Meta under LP ── */
+        .song-meta {
+            text-align: center;
+        }
+        .song-meta .title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 300; letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.9);
+        }
+        .song-meta .artist {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem; font-weight: 300;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: rgba(255,255,255,0.3); margin-top: 4px;
+        }
+        .song-meta .status {
             display: inline-flex; align-items: center; gap: 6px;
-            font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-            color: rgba(255,255,255,0.35); margin-bottom: 10px;
+            font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+            color: rgba(255,255,255,0.25); margin-top: 10px;
         }
-        .song-info .tag .dot {
-            width: 5px; height: 5px; border-radius: 50%;
-            background: #4ade80; animation: glow 2s infinite;
+        .song-meta .status .dot {
+            width: 4px; height: 4px; border-radius: 50%;
+            background: #e2725b; animation: statusGlow 2s infinite;
         }
-        @keyframes glow { 0%,100% { box-shadow: 0 0 4px #4ade80; } 50% { box-shadow: 0 0 12px #4ade80, 0 0 24px rgba(74,222,128,0.3); } }
-        .song-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700;
-            letter-spacing: -0.02em; margin-bottom: 4px;
-        }
-        .song-artist { font-size: 0.85rem; color: rgba(255,255,255,0.4); font-weight: 300; letter-spacing: 0.1em; }
+        @keyframes statusGlow { 0%,100% { box-shadow: 0 0 3px #e2725b; } 50% { box-shadow: 0 0 10px #e2725b; } }
 
-        /* ── Lyrics Container ── */
-        .lyrics-container {
-            text-align: center; min-height: 200px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 0 clamp(20px, 6vw, 80px);
+        /* ── Lyrics Panel (Right) ── */
+        .lyrics-panel {
+            flex: 1; max-width: 520px;
+            display: flex; flex-direction: column;
+            gap: 0; position: relative;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+            scrollbar-width: none;
+            mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+            padding: 40px 0;
+        }
+        .lyrics-panel::-webkit-scrollbar { display: none; }
+
+        /* ── Lyric Section Block ── */
+        .lyric-block {
+            padding: 24px 0;
+            opacity: 0.08;
+            transform: translateY(20px);
+            transition: all 1.2s cubic-bezier(0.16,1,0.3,1);
+            border-left: 2px solid transparent;
+            padding-left: 24px;
             position: relative;
         }
-        .lyric-section {
-            font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-            color: rgba(255,255,255,0.2); margin-bottom: 16px;
-            opacity: 0; transform: translateY(12px);
-            transition: all 0.8s cubic-bezier(0.16,1,0.3,1);
+        .lyric-block.active {
+            opacity: 1;
+            transform: translateY(0);
+            border-left-color: rgba(226,114,91,0.6);
         }
-        .lyric-section.active { opacity: 1; transform: translateY(0); }
-        .lyric-line {
-            font-family: 'Noto Serif KR', serif;
-            font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 400;
-            line-height: 2; color: rgba(255,255,255,0.12);
-            transition: all 0.8s cubic-bezier(0.16,1,0.3,1);
-            max-width: 700px; word-break: keep-all;
-        }
-        .lyric-line.active {
-            color: #fff; text-shadow: 0 0 30px rgba(255,255,255,0.15);
-            transform: scale(1.02);
-        }
-        .lyric-line.past { color: rgba(255,255,255,0.25); }
-        .lyric-line.highlight {
-            color: #4ade80; text-shadow: 0 0 40px rgba(74,222,128,0.2);
-            font-weight: 500;
+        .lyric-block.past {
+            opacity: 0.25;
+            transform: translateY(-8px);
+            border-left-color: rgba(255,255,255,0.06);
         }
 
-        /* ── Player Controls ── */
+        .lyric-block .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.6rem; font-weight: 600;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            color: rgba(226,114,91,0.5);
+            margin-bottom: 12px;
+            opacity: 0; transform: translateX(-10px);
+            transition: all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s;
+        }
+        .lyric-block.active .section-label {
+            opacity: 1; transform: translateX(0);
+            color: rgba(226,114,91,0.9);
+        }
+
+        .lyric-block .lyric-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+            font-weight: 400; line-height: 2.2;
+            color: rgba(255,255,255,0.5);
+            word-break: keep-all;
+            transition: color 1s, text-shadow 1s;
+        }
+        .lyric-block.active .lyric-text {
+            color: rgba(255,255,255,0.92);
+            text-shadow: 0 0 30px rgba(255,255,255,0.06);
+        }
+
+        .lyric-block.highlight.active .lyric-text {
+            color: #e8c4a0;
+            text-shadow: 0 0 40px rgba(226,114,91,0.12);
+        }
+
+        .lyric-block .deep-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300; font-style: italic;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.08);
+            transition: all 2s cubic-bezier(0.16,1,0.3,1);
+        }
+        .lyric-block.active .deep-text {
+            color: rgba(226,114,91,0.8);
+            text-shadow: 0 0 60px rgba(226,114,91,0.2);
+        }
+
+        /* ── Player ── */
         .player {
             position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
-            padding: 20px clamp(20px, 5vw, 60px) 28px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.95));
+            padding: 16px clamp(20px, 5vw, 60px) 24px;
+            background: linear-gradient(transparent, rgba(10,10,10,0.9) 40%, rgba(10,10,10,0.98));
         }
         .progress-wrap {
-            width: 100%; height: 3px; background: rgba(255,255,255,0.08);
-            border-radius: 4px; cursor: pointer; margin-bottom: 14px;
+            width: 100%; height: 2px; background: rgba(255,255,255,0.06);
+            border-radius: 4px; cursor: pointer; margin-bottom: 12px;
             position: relative; transition: height 0.2s;
         }
-        .progress-wrap:hover { height: 5px; }
+        .progress-wrap:hover { height: 4px; }
         .progress-bar {
-            height: 100%; background: linear-gradient(90deg, #4ade80, #22d3ee);
-            border-radius: 4px; width: 0%; transition: none;
-            position: relative;
+            height: 100%;
+            background: linear-gradient(90deg, #e2725b, #e8c4a0);
+            border-radius: 4px; width: 0%; position: relative;
         }
         .progress-bar::after {
             content: ''; position: absolute; right: -5px; top: 50%;
-            width: 10px; height: 10px; border-radius: 50%;
-            background: #fff; transform: translateY(-50%);
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #e8c4a0; transform: translateY(-50%);
             opacity: 0; transition: opacity 0.2s;
         }
         .progress-wrap:hover .progress-bar::after { opacity: 1; }
 
-        .controls {
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .controls-left { display: flex; align-items: center; gap: 20px; }
-        .controls-center { display: flex; align-items: center; gap: 24px; }
-        .controls-right { display: flex; align-items: center; gap: 16px; }
+        .controls { display: flex; align-items: center; justify-content: space-between; }
+        .controls-left { display: flex; align-items: center; gap: 16px; }
+        .controls-center { font-family: 'Cormorant Garamond', serif; font-size: 0.8rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; }
+        .controls-center strong { color: rgba(255,255,255,0.6); font-weight: 400; }
+        .controls-right { display: flex; align-items: center; gap: 12px; }
 
         .btn-play {
-            width: 48px; height: 48px; border-radius: 50%;
-            background: #fff; border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            width: 42px; height: 42px; border-radius: 50%;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; backdrop-filter: blur(4px);
         }
-        .btn-play:hover { transform: scale(1.08); box-shadow: 0 0 24px rgba(255,255,255,0.2); }
-        .btn-play svg { fill: #000; width: 20px; height: 20px; margin-left: 2px; }
+        .btn-play:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); transform: scale(1.06); }
+        .btn-play svg { fill: #fff; width: 16px; height: 16px; margin-left: 2px; }
         .btn-play.playing svg { margin-left: 0; }
 
-        .time { font-size: 0.7rem; color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums; letter-spacing: 0.05em; min-width: 40px; }
-        .now-playing { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
-        .now-playing strong { color: #fff; font-weight: 500; }
+        .time {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.72rem; color: rgba(255,255,255,0.3);
+            font-variant-numeric: tabular-nums; letter-spacing: 0.08em;
+        }
 
-        .vol-wrap { display: flex; align-items: center; gap: 8px; }
-        .vol-icon { color: rgba(255,255,255,0.4); font-size: 0.85rem; cursor: pointer; }
-        .vol-slider { width: 80px; height: 3px; -webkit-appearance: none; background: rgba(255,255,255,0.15); border-radius: 4px; outline: none; }
-        .vol-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%; background: #fff; cursor: pointer; }
+        .vol-wrap { display: flex; align-items: center; gap: 6px; }
+        .vol-icon { color: rgba(255,255,255,0.3); font-size: 0.75rem; cursor: pointer; }
+        .vol-slider { width: 70px; height: 2px; -webkit-appearance: none; background: rgba(255,255,255,0.1); border-radius: 4px; outline: none; }
+        .vol-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 8px; height: 8px; border-radius: 50%; background: #e8c4a0; cursor: pointer; }
 
         /* ── Start Screen ── */
         .start-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 50; background: #000;
+            z-index: 50; background: #0a0a0a;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 1s, visibility 1s;
+            transition: opacity 1.5s, visibility 1.5s;
         }
         .start-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .start-cover {
+            width: clamp(200px, 30vw, 280px); height: clamp(200px, 30vw, 280px);
+            background: url('../images/album-the-answer.png') center center / cover;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+            margin-bottom: 40px;
+            opacity: 0; animation: fadeUp 1.2s 0.3s forwards;
+        }
         .start-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 6rem); font-weight: 700;
-            margin-bottom: 8px; opacity: 0; animation: fadeUp 1s 0.3s forwards;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 300;
+            letter-spacing: 0.12em;
+            margin-bottom: 6px; opacity: 0; animation: fadeUp 1s 0.6s forwards;
         }
         .start-sub {
-            font-size: 1rem; color: rgba(255,255,255,0.4); font-weight: 300;
-            letter-spacing: 0.15em; margin-bottom: 48px;
-            opacity: 0; animation: fadeUp 1s 0.6s forwards;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem; color: rgba(255,255,255,0.3); font-weight: 300;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 48px;
+            opacity: 0; animation: fadeUp 1s 0.8s forwards;
         }
         .start-btn {
-            width: 80px; height: 80px; border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.2); background: none;
+            width: 64px; height: 64px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03);
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.4s;
-            opacity: 0; animation: fadeUp 1s 0.9s forwards;
+            opacity: 0; animation: fadeUp 1s 1s forwards;
+            backdrop-filter: blur(8px);
         }
-        .start-btn:hover { border-color: #fff; background: rgba(255,255,255,0.05); transform: scale(1.1); box-shadow: 0 0 40px rgba(255,255,255,0.1); }
-        .start-btn svg { fill: #fff; width: 28px; height: 28px; margin-left: 4px; }
+        .start-btn:hover { border-color: #e2725b; background: rgba(226,114,91,0.08); transform: scale(1.12); box-shadow: 0 0 40px rgba(226,114,91,0.1); }
+        .start-btn svg { fill: rgba(255,255,255,0.8); width: 22px; height: 22px; margin-left: 3px; }
         .start-hint {
-            margin-top: 20px; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-            color: rgba(255,255,255,0.2);
+            margin-top: 20px; font-family: 'Cormorant Garamond', serif;
+            font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+            color: rgba(255,255,255,0.12);
             opacity: 0; animation: fadeUp 1s 1.2s forwards;
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Particles (CSS) ── */
+        /* ── Particles ── */
         .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         .particle {
-            position: absolute; width: 2px; height: 2px; background: rgba(255,255,255,0.3);
-            border-radius: 50%; animation: float linear infinite;
+            position: absolute; width: 1px; height: 1px; background: rgba(255,255,255,0.4);
+            border-radius: 50%; animation: floatUp linear infinite;
         }
-        @keyframes float {
+        @keyframes floatUp {
             0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-5vh) scale(1); opacity: 0; }
         }
 
-        @media(max-width: 768px) {
-            .controls-right .now-playing { display: none; }
+        @media(max-width: 900px) {
+            .main-layout {
+                flex-direction: column; gap: 28px;
+                padding: 60px 24px 120px;
+            }
+            .lp-disc { width: 180px; height: 180px; }
+            .lyrics-panel { max-height: 45vh; padding: 20px 0; }
+            .lyric-block { padding: 16px 0; padding-left: 16px; }
             .vol-wrap { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="back-bar" style="opacity: 0;">
+<div class="back-bar">
     <a href="../index.html">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
         Portfolio
     </a>
     <span>Music Visualizer</span>
 </div>
 
+<div class="album-bg" id="albumBg"></div>
 <canvas id="visualizer"></canvas>
 <div class="overlay"></div>
 <div class="particles" id="particles"></div>
 
 <!-- Start Screen -->
 <div class="start-screen" id="startScreen">
+    <div class="start-cover"></div>
     <div class="start-title">The Answer</div>
-    <div class="start-sub">나그네</div>
-    <button class="start-btn" id="startBtn" aria-label="재생">
+    <div class="start-sub">Nageune</div>
+    <button class="start-btn" id="startBtn" aria-label="Play">
         <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
     </button>
-    <div class="start-hint">Click to play</div>
+    <div class="start-hint">Press to begin</div>
 </div>
 
-<!-- Main UI -->
-<div class="ui" id="mainUI" style="opacity: 0;">
-    <div class="song-info" id="songInfo">
-        <div class="tag"><span class="dot"></span> Now Playing</div>
-        <div class="song-title">The Answer</div>
-        <div class="song-artist">나그네 — bang1lee</div>
+<!-- Main Layout -->
+<div class="main-layout" id="mainLayout">
+    <!-- LP Section -->
+    <div class="lp-section">
+        <div class="lp-disc" id="lpDisc">
+            <div class="vinyl"></div>
+            <div class="album-label"></div>
+            <div class="center-hole"></div>
+        </div>
+        <div class="song-meta">
+            <div class="title">The Answer</div>
+            <div class="artist">Nageune</div>
+            <div class="status"><span class="dot"></span> Now Playing</div>
+        </div>
     </div>
 
-    <div class="lyrics-container" id="lyricsContainer">
-        <div class="lyric-section" id="lyricSection"></div>
-        <div id="lyricLines"></div>
+    <!-- Lyrics Panel -->
+    <div class="lyrics-panel" id="lyricsPanel">
+        <!-- Intro -->
+        <div class="lyric-block" data-time="0" data-section="intro">
+            <div class="section-label">Intro</div>
+            <div class="lyric-text" style="font-family: 'Cormorant Garamond', serif; font-style: italic; color: rgba(255,255,255,0.3);">· · ·</div>
+        </div>
+
+        <!-- Verse 1 -->
+        <div class="lyric-block" data-time="18" data-section="verse1">
+            <div class="section-label">Verse 1</div>
+            <div class="lyric-text">하늘 아래 길을 걷는 한 사람이 있었다<br>무엇인지도 모른 채 찾아 헤맸다<br>넘어지고 일어서며 새긴 세월 속에<br>열정이라는 이름의 불씨가 남았다</div>
+        </div>
+
+        <!-- Verse 2 -->
+        <div class="lyric-block" data-time="52" data-section="verse2">
+            <div class="section-label">Verse 2</div>
+            <div class="lyric-text">바다 위를 떠도는 한 영혼이 있었다<br>닿을 수 없는 곳을 향해 나아갔다<br>흔들리고 버티면서 쌓아온 시간 속에<br>집념이라는 이름의 뿌리가 생겼다</div>
+        </div>
+
+        <!-- Chorus 1 -->
+        <div class="lyric-block highlight" data-time="86" data-section="chorus1">
+            <div class="section-label">Chorus</div>
+            <div class="lyric-text">달려온 길이 틀리지 않았다<br>날아온 꿈이 헛되지 않았다<br>영원한 자유 지금 여기 있다<br>긴 물음 끝에 영혼이 쉰다</div>
+        </div>
+
+        <!-- Bridge -->
+        <div class="lyric-block" data-time="125" data-section="bridge">
+            <div class="section-label">Bridge</div>
+            <div class="lyric-text">왜 태어났는가<br>무엇을 위해 살았는가<br>오늘에야 그 물음이 풀린다</div>
+        </div>
+
+        <!-- Chorus 2 -->
+        <div class="lyric-block highlight" data-time="155" data-section="chorus2">
+            <div class="section-label">Chorus</div>
+            <div class="lyric-text">달려온 길이 틀리지 않았다<br>날아온 꿈이 헛되지 않았다<br>영원한 자유 지금 여기 있다<br>긴 물음 끝에 영혼이 쉰다</div>
+        </div>
+
+        <!-- Deep -->
+        <div class="lyric-block" data-time="201" data-section="deep">
+            <div class="section-label"></div>
+            <div class="deep-text">Deep.</div>
+        </div>
     </div>
 </div>
 
-<!-- Player Controls -->
+<!-- Player -->
 <div class="player" id="player" style="opacity: 0;">
     <div class="progress-wrap" id="progressWrap">
         <div class="progress-bar" id="progressBar"></div>
     </div>
     <div class="controls">
         <div class="controls-left">
-            <button class="btn-play" id="playBtn" aria-label="재생/일시정지">
+            <button class="btn-play" id="playBtn" aria-label="Play/Pause">
                 <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
             </button>
             <span class="time"><span id="currentTime">0:00</span> / <span id="totalTime">0:00</span></span>
         </div>
         <div class="controls-center">
-            <div class="now-playing"><strong>The Answer</strong> &nbsp;·&nbsp; 나그네</div>
+            <strong>The Answer</strong> &nbsp;·&nbsp; Nageune
         </div>
         <div class="controls-right">
             <div class="vol-wrap">
@@ -282,50 +465,12 @@
 (function() {
 'use strict';
 
-// ═══ Lyrics Data with timestamps (seconds) ═══
-const lyrics = [
-    { time: 0, section: 'Intro', lines: [] },
-    { time: 16, section: 'Verse 1', lines: [
-        { time: 16, text: '하늘 아래 길을 걷는 한 사람이 있었다' },
-        { time: 24, text: '무엇인지도 모른 채 찾아 헤맸다' },
-        { time: 32, text: '넘어지고 일어서며 새긴 세월 속에' },
-        { time: 40, text: '열정이라는 이름의 불씨가 남았다' },
-    ]},
-    { time: 50, section: 'Verse 2', lines: [
-        { time: 50, text: '바다 위를 떠도는 한 영혼이 있었다' },
-        { time: 58, text: '닿을 수 없는 곳을 향해 나아갔다' },
-        { time: 66, text: '흔들리고 버티면서 쌓아온 시간 속에' },
-        { time: 74, text: '집념이라는 이름의 뿌리가 생겼다' },
-    ]},
-    { time: 84, section: 'Chorus', lines: [
-        { time: 84, text: '달려온 길이 틀리지 않았다', highlight: true },
-        { time: 92, text: '날아온 꿈이 헛되지 않았다', highlight: true },
-        { time: 100, text: '영원한 자유 지금 여기 있다', highlight: true },
-        { time: 108, text: '긴 물음 끝에 영혼이 쉰다' },
-    ]},
-    { time: 118, section: 'Bridge', lines: [
-        { time: 118, text: '왜 태어났는가' },
-        { time: 126, text: '무엇을 위해 살았는가' },
-        { time: 134, text: '오늘에야 그 물음이 풀린다' },
-    ]},
-    { time: 146, section: 'Chorus', lines: [
-        { time: 146, text: '달려온 길이 틀리지 않았다', highlight: true },
-        { time: 154, text: '날아온 꿈이 헛되지 않았다', highlight: true },
-        { time: 162, text: '영원한 자유 지금 여기 있다', highlight: true },
-        { time: 170, text: '긴 물음 끝에 영혼이 쉰다' },
-    ]},
-    { time: 182, section: '', lines: [
-        { time: 182, text: 'Deep.', highlight: true },
-    ]},
-];
-
-// ═══ DOM ═══
 const audio = document.getElementById('audio');
 const canvas = document.getElementById('visualizer');
 const ctx = canvas.getContext('2d');
 const startScreen = document.getElementById('startScreen');
 const startBtn = document.getElementById('startBtn');
-const mainUI = document.getElementById('mainUI');
+const mainLayout = document.getElementById('mainLayout');
 const player = document.getElementById('player');
 const playBtn = document.getElementById('playBtn');
 const playIcon = document.getElementById('playIcon');
@@ -334,15 +479,16 @@ const progressBar = document.getElementById('progressBar');
 const currentTimeEl = document.getElementById('currentTime');
 const totalTimeEl = document.getElementById('totalTime');
 const volSlider = document.getElementById('volSlider');
-const songInfo = document.getElementById('songInfo');
-const lyricSection = document.getElementById('lyricSection');
-const lyricLinesEl = document.getElementById('lyricLines');
+const albumBg = document.getElementById('albumBg');
+const lpDisc = document.getElementById('lpDisc');
+const lyricsPanel = document.getElementById('lyricsPanel');
+const lyricBlocks = document.querySelectorAll('.lyric-block');
 
 let audioCtx, analyser, source, dataArray, bufferLength;
 let isPlaying = false;
-let currentSection = -1;
+let currentBlockIdx = -1;
 
-// ═══ Resize Canvas ═══
+// ═══ Canvas Resize ═══
 function resizeCanvas() {
     canvas.width = window.innerWidth * window.devicePixelRatio;
     canvas.height = window.innerHeight * window.devicePixelRatio;
@@ -355,22 +501,22 @@ window.addEventListener('resize', resizeCanvas);
 
 // ═══ Particles ═══
 const particlesEl = document.getElementById('particles');
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < 30; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
     p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (8 + Math.random() * 12) + 's';
-    p.style.animationDelay = Math.random() * 10 + 's';
-    p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
-    p.style.opacity = 0.1 + Math.random() * 0.3;
+    p.style.animationDuration = (12 + Math.random() * 18) + 's';
+    p.style.animationDelay = Math.random() * 15 + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 1.5) + 'px';
+    p.style.opacity = 0.05 + Math.random() * 0.15;
     particlesEl.appendChild(p);
 }
 
-// ═══ Audio Context Setup ═══
+// ═══ Audio Setup ═══
 function setupAudio() {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 512;
+    analyser.fftSize = 256;
     analyser.smoothingTimeConstant = 0.85;
     bufferLength = analyser.frequencyBinCount;
     dataArray = new Uint8Array(bufferLength);
@@ -379,146 +525,69 @@ function setupAudio() {
     analyser.connect(audioCtx.destination);
 }
 
-// ═══ Visualizer Render ═══
+// ═══ Visualizer ═══
 const W = () => window.innerWidth;
 const H = () => window.innerHeight;
 
 function drawVisualizer() {
     requestAnimationFrame(drawVisualizer);
     if (!analyser) return;
-
     analyser.getByteFrequencyData(dataArray);
     ctx.clearRect(0, 0, W(), H());
 
-    // Average energy
     let sum = 0;
     for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
-    const avg = sum / bufferLength;
-    const energy = avg / 255;
+    const energy = (sum / bufferLength) / 255;
 
-    // Background pulse
-    const bgAlpha = 0.02 + energy * 0.06;
-    ctx.fillStyle = `rgba(0, 0, 0, ${1 - bgAlpha})`;
+    // Subtle ambient glow around LP area
+    const lpRect = lpDisc.getBoundingClientRect();
+    const cx = lpRect.left + lpRect.width / 2;
+    const cy = lpRect.top + lpRect.height / 2;
+    const radius = lpRect.width * 0.8;
+
+    const grad = ctx.createRadialGradient(cx, cy, radius * 0.3, cx, cy, radius);
+    grad.addColorStop(0, `rgba(226,114,91,${energy * 0.06})`);
+    grad.addColorStop(0.5, `rgba(232,196,160,${energy * 0.03})`);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W(), H());
 
-    const cx = W() / 2;
-    const cy = H() / 2;
-
-    // ── Circular Spectrum ──
-    const baseRadius = Math.min(W(), H()) * 0.18;
-    const bars = 128;
-    for (let i = 0; i < bars; i++) {
-        const angle = (i / bars) * Math.PI * 2 - Math.PI / 2;
-        const val = dataArray[i] || 0;
-        const h = (val / 255) * baseRadius * 0.8;
-
-        const x1 = cx + Math.cos(angle) * baseRadius;
-        const y1 = cy + Math.sin(angle) * baseRadius;
-        const x2 = cx + Math.cos(angle) * (baseRadius + h);
-        const y2 = cy + Math.sin(angle) * (baseRadius + h);
-
-        const hue = 140 + (i / bars) * 40;
-        ctx.strokeStyle = `hsla(${hue}, 60%, ${50 + val * 0.15}%, ${0.3 + (val / 255) * 0.5})`;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
-    }
-
-    // ── Inner Circle ──
-    const innerR = baseRadius * (0.85 + energy * 0.15);
+    // Bottom subtle waveform
+    const waveY = H() - 80;
     ctx.beginPath();
-    ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(74, 222, 128, ${0.08 + energy * 0.15})`;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    // ── Outer Glow Ring ──
-    const outerR = baseRadius + baseRadius * 0.5;
-    const glowGrad = ctx.createRadialGradient(cx, cy, baseRadius, cx, cy, outerR);
-    glowGrad.addColorStop(0, `rgba(74, 222, 128, ${energy * 0.06})`);
-    glowGrad.addColorStop(0.5, `rgba(34, 211, 238, ${energy * 0.03})`);
-    glowGrad.addColorStop(1, 'transparent');
-    ctx.fillStyle = glowGrad;
-    ctx.fillRect(0, 0, W(), H());
-
-    // ── Bottom Waveform ──
-    const waveY = H() - 100;
-    ctx.beginPath();
-    ctx.moveTo(0, waveY);
     for (let i = 0; i < bufferLength; i++) {
         const x = (i / bufferLength) * W();
         const v = dataArray[i] / 255;
-        const y = waveY - v * 40;
+        const y = waveY - v * 20;
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     }
-    ctx.strokeStyle = 'rgba(74, 222, 128, 0.12)';
+    ctx.strokeStyle = `rgba(226,114,91,${0.04 + energy * 0.06})`;
     ctx.lineWidth = 1;
     ctx.stroke();
 }
 
-// ═══ Lyrics Sync ═══
-function getAllLines() {
-    const all = [];
-    lyrics.forEach((s, si) => {
-        s.lines.forEach((l, li) => {
-            all.push({ ...l, sectionIdx: si, section: s.section });
-        });
-    });
-    return all;
-}
-const allLines = getAllLines();
-
+// ═══ Section-based Lyrics Sync ═══
 function updateLyrics(t) {
-    // Find current section
-    let secIdx = 0;
-    for (let i = lyrics.length - 1; i >= 0; i--) {
-        if (t >= lyrics[i].time) { secIdx = i; break; }
-    }
-
-    if (secIdx !== currentSection) {
-        currentSection = secIdx;
-        renderSection(secIdx, t);
-    }
-
-    // Update active line
-    const section = lyrics[secIdx];
-    const lineEls = lyricLinesEl.querySelectorAll('.lyric-line');
-    section.lines.forEach((line, i) => {
-        if (!lineEls[i]) return;
-        const isActive = t >= line.time && (i === section.lines.length - 1 || t < section.lines[i + 1]?.time);
-        const isPast = t > (section.lines[i + 1]?.time || Infinity) || (i < section.lines.length - 1 && t >= section.lines[i + 1]?.time);
-
-        lineEls[i].classList.toggle('active', isActive);
-        lineEls[i].classList.toggle('past', isPast && !isActive);
-        if (line.highlight && isActive) {
-            lineEls[i].classList.add('highlight');
-        } else {
-            lineEls[i].classList.remove('highlight');
-        }
+    let activeIdx = 0;
+    lyricBlocks.forEach((block, i) => {
+        const blockTime = parseFloat(block.dataset.time);
+        if (t >= blockTime) activeIdx = i;
     });
-}
 
-function renderSection(idx, t) {
-    const section = lyrics[idx];
-    lyricSection.textContent = section.section;
-    lyricSection.classList.toggle('active', !!section.section);
+    if (activeIdx !== currentBlockIdx) {
+        currentBlockIdx = activeIdx;
 
-    lyricLinesEl.innerHTML = '';
-    section.lines.forEach((line, i) => {
-        const el = document.createElement('div');
-        el.className = 'lyric-line';
-        el.textContent = line.text;
-        el.style.transitionDelay = (i * 0.1) + 's';
-        lyricLinesEl.appendChild(el);
-        // Trigger reflow for animation
-        requestAnimationFrame(() => {
-            if (t >= line.time) {
-                el.classList.add('past');
+        lyricBlocks.forEach((block, i) => {
+            block.classList.remove('active', 'past');
+            if (i === activeIdx) {
+                block.classList.add('active');
+                // Auto-scroll the active block into view
+                block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (i < activeIdx) {
+                block.classList.add('past');
             }
         });
-    });
+    }
 }
 
 // ═══ Player Controls ═══
@@ -530,23 +599,18 @@ function formatTime(s) {
 
 function updateProgress() {
     if (!audio.duration) return;
-    const pct = (audio.currentTime / audio.duration) * 100;
-    progressBar.style.width = pct + '%';
+    progressBar.style.width = (audio.currentTime / audio.duration) * 100 + '%';
     currentTimeEl.textContent = formatTime(audio.currentTime);
     updateLyrics(audio.currentTime);
 }
 
-audio.addEventListener('loadedmetadata', () => {
-    totalTimeEl.textContent = formatTime(audio.duration);
-});
-
+audio.addEventListener('loadedmetadata', () => totalTimeEl.textContent = formatTime(audio.duration));
 audio.addEventListener('timeupdate', updateProgress);
 
 progressWrap.addEventListener('click', (e) => {
     const rect = progressWrap.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
-    audio.currentTime = pct * audio.duration;
-    currentSection = -1; // Force re-render
+    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+    currentBlockIdx = -1;
 });
 
 playBtn.addEventListener('click', togglePlay);
@@ -556,11 +620,13 @@ function togglePlay() {
         audio.pause();
         playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
         playBtn.classList.remove('playing');
+        lpDisc.classList.remove('spinning');
     } else {
         if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
         audio.play();
         playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
         playBtn.classList.add('playing');
+        lpDisc.classList.add('spinning');
     }
     isPlaying = !isPlaying;
 }
@@ -574,14 +640,14 @@ audio.addEventListener('ended', () => {
     isPlaying = false;
     playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
     playBtn.classList.remove('playing');
-    currentSection = -1;
+    lpDisc.classList.remove('spinning');
+    currentBlockIdx = -1;
 });
 
-// Keyboard controls
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
-    if (e.code === 'ArrowLeft') audio.currentTime = Math.max(0, audio.currentTime - 5);
-    if (e.code === 'ArrowRight') audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+    if (e.code === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); currentBlockIdx = -1; }
+    if (e.code === 'ArrowRight') { audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); currentBlockIdx = -1; }
 });
 
 // ═══ Start ═══
@@ -589,20 +655,17 @@ startBtn.addEventListener('click', () => {
     setupAudio();
     drawVisualizer();
     startScreen.classList.add('hidden');
-    mainUI.style.opacity = '1';
+    mainLayout.classList.add('visible');
     player.style.opacity = '1';
-    songInfo.classList.add('visible');
+    albumBg.classList.add('visible');
+    lpDisc.classList.add('spinning');
     audio.volume = 0.8;
     audio.play();
     isPlaying = true;
     playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
     playBtn.classList.add('playing');
-    // Show back bar on hover
     document.querySelector('.back-bar').style.opacity = '';
 });
-
-// ═══ Initial Render ═══
-renderSection(0, 0);
 
 })();
 </script>
