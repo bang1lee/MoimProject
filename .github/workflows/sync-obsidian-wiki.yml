@@ -1,50 +1,168 @@
-name: Sync to Obsidian LLM Wiki
+name: Sync MoimProject <-> Obsidian LLM Wiki
 
 on:
   push:
     branches:
       - main
+  schedule:
+    # Hourly safety run for the reverse direction (wiki -> MoimProject).
+    - cron: "15 * * * *"
   workflow_dispatch:
     inputs:
+      direction:
+        description: "Sync direction"
+        required: false
+        default: "both"
+        type: choice
+        options:
+          - both
+          - forward
+          - reverse
       message:
-        description: "Custom commit message for the wiki repo (optional)"
+        description: "Custom commit message (optional)"
         required: false
         default: ""
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: sync-obsidian-wiki
   cancel-in-progress: false
 
+env:
+  WIKI_REPO: bang1lee/obsidian-llm-wiki
+  WIKI_TARGET_DIR: projects/MoimProject
+
 jobs:
-  sync:
+  reverse-sync:
+    # Reverse pulls wiki edits back into MoimProject. Skip on direct pushes
+    # (the user's push IS the change). Run on schedule, manual, or repository_dispatch.
+    if: |
+      github.event_name != 'push' &&
+      (
+        github.event_name != 'workflow_dispatch' ||
+        inputs.direction == 'reverse' ||
+        inputs.direction == 'both'
+      )
     runs-on: ubuntu-latest
-    env:
-      WIKI_REPO: bang1lee/obsidian-llm-wiki
-      WIKI_TARGET_DIR: projects/MoimProject
+    outputs:
+      committed: ${{ steps.reverse-commit.outputs.committed }}
     steps:
-      - name: Checkout source repo (MoimProject)
+      - name: Checkout MoimProject (writable)
         uses: actions/checkout@v4
         with:
+          ref: main
+          fetch-depth: 0
           path: source
-          fetch-depth: 1
 
-      - name: Checkout wiki repo
+      - name: Checkout wiki
         uses: actions/checkout@v4
         with:
           repository: ${{ env.WIKI_REPO }}
           token: ${{ secrets.WIKI_SYNC_TOKEN }}
           path: wiki
+          ref: main
           fetch-depth: 1
 
-      - name: Install pandoc
+      - name: Install rsync
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync
+
+      - name: Apply wiki raw/ back to MoimProject
+        run: |
+          set -euo pipefail
+          src="wiki/${{ env.WIKI_TARGET_DIR }}/raw/"
+          if [ ! -d "${src}" ]; then
+            echo "::notice::Wiki has no raw/ folder yet — first run, skipping reverse"
+            exit 0
+          fi
+          rsync -av --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.DS_Store' \
+            "${src}" "source/"
+
+      - name: Commit reverse changes (if any)
+        id: reverse-commit
+        working-directory: source
+        env:
+          CUSTOM_MSG: ${{ inputs.message }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "::notice::No reverse changes"
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ -n "${CUSTOM_MSG}" ]; then
+            commit_msg="${CUSTOM_MSG} [skip ci]"
+          else
+            commit_msg="chore(reverse-sync): apply wiki edits [skip ci]"
+          fi
+
+          git commit -m "${commit_msg}" -m "Source: https://github.com/${WIKI_REPO}"
+
+          for attempt in 1 2 3 4; do
+            if git push origin main; then
+              echo "Pushed reverse on attempt ${attempt}"
+              echo "committed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            wait_seconds=$((2 ** attempt))
+            echo "Push failed, retrying in ${wait_seconds}s..."
+            sleep "${wait_seconds}"
+            git pull --rebase origin main || true
+          done
+
+          echo "::error::Reverse push failed after retries"
+          exit 1
+
+  forward-sync:
+    needs: [reverse-sync]
+    # Forward runs on push, schedule, or manual (when direction is forward/both).
+    # Always wait for reverse-sync to settle if it ran, but proceed even if it was skipped.
+    if: |
+      always() &&
+      (needs.reverse-sync.result == 'success' || needs.reverse-sync.result == 'skipped') &&
+      (
+        github.event_name == 'push' ||
+        github.event_name == 'schedule' ||
+        (
+          github.event_name == 'workflow_dispatch' &&
+          (inputs.direction == 'forward' || inputs.direction == 'both')
+        )
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout MoimProject (latest main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          path: source
+
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.WIKI_REPO }}
+          token: ${{ secrets.WIKI_SYNC_TOKEN }}
+          path: wiki
+          ref: main
+          fetch-depth: 1
+
+      - name: Install pandoc and rsync
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc rsync
 
-      - name: Run sync script
+      - name: Run forward sync script
         env:
           SOURCE_DIR: ${{ github.workspace }}/source
           WIKI_DIR: ${{ github.workspace }}/wiki
@@ -54,32 +172,33 @@ jobs:
           SOURCE_REF: ${{ github.ref_name }}
         run: bash source/.github/scripts/sync-to-wiki.sh
 
-      - name: Commit and push to wiki repo
+      - name: Commit and push to wiki
         working-directory: wiki
         env:
           CUSTOM_MSG: ${{ inputs.message }}
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add -A
           if git diff --cached --quiet; then
-            echo "::notice::No changes to sync"
+            echo "::notice::No forward changes to sync"
             exit 0
           fi
 
           short_sha="${GITHUB_SHA:0:7}"
           if [ -n "${CUSTOM_MSG}" ]; then
-            commit_msg="${CUSTOM_MSG}"
+            commit_msg="${CUSTOM_MSG} [skip ci]"
           else
-            commit_msg="chore(sync): MoimProject @ ${short_sha}"
+            commit_msg="chore(sync): MoimProject @ ${short_sha} [skip ci]"
           fi
 
           git commit -m "${commit_msg}" -m "Source: https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
 
           for attempt in 1 2 3 4; do
             if git push; then
-              echo "Pushed on attempt ${attempt}"
+              echo "Pushed forward on attempt ${attempt}"
               exit 0
             fi
             wait_seconds=$((2 ** attempt))
@@ -88,5 +207,5 @@ jobs:
             git pull --rebase || true
           done
 
-          echo "::error::Push to wiki repo failed after retries"
+          echo "::error::Forward push failed after retries"
           exit 1

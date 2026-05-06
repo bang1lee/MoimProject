@@ -1,17 +1,34 @@
-# Obsidian LLM Wiki 자동 동기화 셋업
+# Obsidian LLM Wiki 양방향 자동 동기화 셋업
 
 이 레포(`bang1lee/MoimProject`)는 `bang1lee/obsidian-llm-wiki`의
-`projects/MoimProject/` 폴더로 콘텐츠를 자동 동기화합니다.
+`projects/MoimProject/` 폴더와 **양방향**으로 자동 동기화됩니다.
 
 ## 동작 방식
 
-- 트리거: `main` 브랜치 push, 또는 Actions 탭에서 수동 실행 (`workflow_dispatch`)
-- 동기화 위치: `bang1lee/obsidian-llm-wiki/projects/MoimProject/`
-- 생성 결과:
-  - `MoimProject.md` — Obsidian 인덱스 노트 (frontmatter + 위키링크)
-  - `notes/*.md` — 각 HTML 페이지를 pandoc으로 변환한 마크다운 노트
-  - `raw/` — 원본 레포 전체 미러
-  - `assets/images/`, `assets/music/` — 에셋 사본
+### 트리거
+- `main` 브랜치 push → **forward만** (MoimProject → wiki)
+- 매시간 (cron `15 * * * *`) → **양방향** (wiki edits 회수 + forward)
+- Actions 탭에서 수동 실행 (`workflow_dispatch`) → 방향 선택 가능 (`forward`/`reverse`/`both`)
+
+### 동기화 매핑
+| 방향 | 원본 → 대상 | 범위 |
+|---|---|---|
+| **Forward** | MoimProject root → `wiki/projects/MoimProject/raw/` | 전체 레포 미러 (`.git`, `.github` 제외) |
+| **Reverse** | `wiki/projects/MoimProject/raw/` → MoimProject root | 위와 동일 |
+
+### 부수적 산출물 (forward sync 시 생성)
+- `wiki/projects/MoimProject/MoimProject.md` — Obsidian 인덱스 노트 (frontmatter + 위키링크)
+- `wiki/projects/MoimProject/notes/*.md` — HTML → pandoc 변환된 마크다운 노트
+- `wiki/projects/MoimProject/assets/images/`, `assets/music/` — 에셋 사본 (Obsidian 임베드용)
+
+### 루프 방지
+봇이 만드는 commit 메시지에 `[skip ci]` 토큰을 넣어 push 트리거를 차단합니다.
+즉, 한쪽 sync가 다른 쪽으로 push해도 그 push가 다시 워크플로우를 trigger하지 않습니다.
+
+### 주의사항 ⚠️
+- `notes/*.md`는 **forward sync 때마다 재생성**됩니다. wiki에서 직접 편집하지 마세요 — 덮어써집니다. (그 안에 별도 파일을 만들어 commentary를 쓰는 것은 OK)
+- `raw/`와 루트 코드/에셋 파일은 양쪽 모두에서 편집 가능합니다.
+- 동시 편집 충돌 시: 매시간 schedule run에서 reverse가 먼저 돌고 forward가 나중에 돌므로, **마지막 push가 살아남습니다**.
 
 ## 필요한 일회성 셋업: `WIKI_SYNC_TOKEN` 시크릿 등록
 
@@ -20,9 +37,12 @@ cross-repo push에는 기본 `GITHUB_TOKEN`으로는 권한이 부족합니다.
 
 ### 1) Personal Access Token (Fine-grained, 권장) 발급
 
+양방향 sync는 wiki 레포에 대한 쓰기 권한이 필요합니다. (MoimProject 자체는
+워크플로우의 기본 `GITHUB_TOKEN`으로 push 가능 — `permissions: contents: write`로 설정됨)
+
 1. https://github.com/settings/personal-access-tokens/new 접속
 2. 설정값
-   - **Token name**: `moim-to-wiki-sync`
+   - **Token name**: `moim-wiki-bisync`
    - **Expiration**: 원하는 기간 (예: 1년)
    - **Repository access**: *Only select repositories* → `bang1lee/obsidian-llm-wiki` 선택
    - **Repository permissions**:
@@ -46,9 +66,11 @@ cross-repo push에는 기본 `GITHUB_TOKEN`으로는 권한이 부족합니다.
 
 ## 동기화 트리거 방법
 
-- **자동**: `main`에 push하면 자동 실행
-- **수동**: GitHub > Actions > *Sync to Obsidian LLM Wiki* > *Run workflow*
-  - 옵션으로 커스텀 커밋 메시지를 지정 가능
+- **자동 (forward only)**: `main`에 push하면 즉시 forward sync 실행
+- **자동 (양방향)**: 매시간 :15분에 schedule run — wiki edits를 먼저 끌어오고 forward 진행
+- **수동**: GitHub > Actions > *Sync MoimProject <-> Obsidian LLM Wiki* > *Run workflow*
+  - `direction`: `both` / `forward` / `reverse` 선택
+  - `message`: 커스텀 커밋 메시지 (선택)
 
 ## 트러블슈팅
 
