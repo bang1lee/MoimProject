@@ -1,0 +1,92 @@
+name: Sync to Obsidian LLM Wiki
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Custom commit message for the wiki repo (optional)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-obsidian-wiki
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      WIKI_REPO: bang1lee/obsidian-llm-wiki
+      WIKI_TARGET_DIR: projects/MoimProject
+    steps:
+      - name: Checkout source repo (MoimProject)
+        uses: actions/checkout@v4
+        with:
+          path: source
+          fetch-depth: 1
+
+      - name: Checkout wiki repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.WIKI_REPO }}
+          token: ${{ secrets.WIKI_SYNC_TOKEN }}
+          path: wiki
+          fetch-depth: 1
+
+      - name: Install pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc rsync
+
+      - name: Run sync script
+        env:
+          SOURCE_DIR: ${{ github.workspace }}/source
+          WIKI_DIR: ${{ github.workspace }}/wiki
+          TARGET_SUBDIR: ${{ env.WIKI_TARGET_DIR }}
+          SOURCE_REPO: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_REF: ${{ github.ref_name }}
+        run: bash source/.github/scripts/sync-to-wiki.sh
+
+      - name: Commit and push to wiki repo
+        working-directory: wiki
+        env:
+          CUSTOM_MSG: ${{ inputs.message }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "::notice::No changes to sync"
+            exit 0
+          fi
+
+          short_sha="${GITHUB_SHA:0:7}"
+          if [ -n "${CUSTOM_MSG}" ]; then
+            commit_msg="${CUSTOM_MSG}"
+          else
+            commit_msg="chore(sync): MoimProject @ ${short_sha}"
+          fi
+
+          git commit -m "${commit_msg}" -m "Source: https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+
+          for attempt in 1 2 3 4; do
+            if git push; then
+              echo "Pushed on attempt ${attempt}"
+              exit 0
+            fi
+            wait_seconds=$((2 ** attempt))
+            echo "Push failed, retrying in ${wait_seconds}s..."
+            sleep "${wait_seconds}"
+            git pull --rebase || true
+          done
+
+          echo "::error::Push to wiki repo failed after retries"
+          exit 1
